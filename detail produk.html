@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Detail Produk - Cipa Kids Fashion</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:        #ff8fb1;
+    --pink-deep:   #e8579d;
+    --pink-soft:   #ffd3e0;
+    --pink-pale:   #fff0f5;
+    --mint:        #9fe3c4;
+    --mint-pale:   #eafaf2;
+    --butter:      #ffe08a;
+    --butter-pale: #fff7dd;
+    --plum-text:   #7a3b63;
+    --ink:         #5a3552;
+    --white:       #ffffff;
+    --radius-lg:   28px;
+    --radius-md:   18px;
+    --shadow-pop:  0 10px 24px rgba(232, 87, 157, 0.22);
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 8% 12%, #ffe1ea 0, transparent 45%),
+      radial-gradient(circle at 92% 20%, #e3d5ff 0, transparent 40%),
+      radial-gradient(circle at 15% 90%, #d6f5e6 0, transparent 40%),
+      #fff8fa;
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+  .doodle{
+    position: fixed;
+    font-size: 26px;
+    opacity: .55;
+    pointer-events: none;
+    animation: float 6s ease-in-out infinite;
+    z-index: 0;
+  }
+  @keyframes float{
+    0%,100%{ transform: translateY(0) rotate(0deg); }
+    50%{ transform: translateY(-18px) rotate(8deg); }
+  }
+
+  .wrapper{
+    position: relative;
+    z-index: 1;
+    max-width: 1220px;
+    margin: 22px auto;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-pop);
+    border: 3px solid var(--pink-soft);
+  }
+
+  /* ---------- HEADER ---------- */
+  header.brand{
+    position: relative;
+    text-align: center;
+    padding: 34px 20px 40px;
+    background: linear-gradient(135deg, var(--pink) 0%, var(--pink-deep) 100%);
+    color: var(--white);
+    overflow: hidden;
+  }
+  header.brand::before, header.brand::after{
+    content: "✨";
+    position: absolute;
+    font-size: 22px;
+    opacity: .8;
+  }
+  header.brand::before{ top: 16px; left: 6%; }
+  header.brand::after{ bottom: 20px; right: 7%; }
+  header.brand h1{
+    font-family: 'Fredoka', cursive;
+    font-size: clamp(26px, 5vw, 42px);
+    margin: 0;
+    text-shadow: 0 3px 0 rgba(0,0,0,.08);
+    letter-spacing: .5px;
+  }
+  .wave{ display: block; width: 100%; line-height: 0; margin-top: -2px; }
+
+  /* ---------- MARQUEE ---------- */
+  marquee.promo-marquee{
+    background: var(--ink);
+    color: var(--butter);
+    font-family: 'Baloo 2', cursive;
+    font-size: 14px;
+    padding: 8px 0;
+    letter-spacing: .5px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav.menu{
+    background: var(--pink-pale);
+    border-bottom: 3px dashed var(--pink);
+  }
+  nav.menu ul{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 0;
+    padding: 14px 12px;
+  }
+  nav.menu a{
+    text-decoration: none;
+    color: var(--pink-deep);
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: var(--white);
+    border: 2px solid var(--pink-soft);
+    transition: all .2s ease;
+    display: inline-block;
+  }
+  nav.menu a.active{ background: var(--pink-deep); color: var(--white); }
+  nav.menu a:hover{
+    background: var(--pink-deep);
+    color: var(--white);
+    transform: translateY(-3px) rotate(-2deg);
+    box-shadow: 0 6px 12px rgba(232,87,157,.3);
+  }
+
+  /* ---------- CART BADGE + PANEL ---------- */
+  .cart-wrap{ position: fixed; top: 18px; right: 18px; z-index: 50; }
+  .cart-btn{
+    position: relative;
+    background: var(--white);
+    border: 2px solid var(--pink-deep);
+    color: var(--pink-deep);
+    font-size: 20px;
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: var(--shadow-pop);
+    cursor: pointer;
+    transition: transform .15s ease;
+  }
+  .cart-btn:hover{ transform: scale(1.08); }
+  .cart-count{
+    position: absolute; top: -6px; right: -6px;
+    background: var(--butter); color: #7a5b00;
+    font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 11px;
+    min-width: 20px; height: 20px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--white);
+  }
+  .cart-panel{
+    position: absolute; top: 56px; right: 0;
+    width: 300px; max-height: 420px;
+    background: var(--white);
+    border: 3px solid var(--pink-soft);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-pop);
+    display: none; flex-direction: column; overflow: hidden;
+  }
+  .cart-panel.open{ display: flex; }
+  .cart-panel-header{
+    background: var(--pink-deep); color: var(--white);
+    font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 15px;
+    padding: 12px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .cart-panel-header button{
+    background: none; border: none; color: var(--white);
+    font-size: 18px; cursor: pointer; line-height: 1;
+  }
+  .cart-items{ overflow-y: auto; padding: 10px 14px; flex: 1; }
+  .cart-item{
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px; padding: 8px 0; border-bottom: 1px dashed var(--pink-soft); font-size: 13px;
+  }
+  .cart-item .info{ flex: 1; text-align: left; }
+  .cart-item .info .nm{ font-family: 'Baloo 2', cursive; font-weight: 700; color: var(--ink); display: block; }
+  .cart-item .info .pr{ color: var(--pink-deep); font-size: 12px; }
+  .cart-item .qty-controls{ display: flex; align-items: center; gap: 6px; }
+  .cart-item .qty-controls button{
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 2px solid var(--pink-soft); background: var(--pink-pale); color: var(--pink-deep);
+    font-weight: 700; cursor: pointer; line-height: 1; font-size: 13px;
+  }
+  .cart-item .qty-controls span{ min-width: 16px; text-align: center; font-weight: 700; }
+  .cart-empty{ text-align: center; padding: 30px 10px; font-family: 'Baloo 2', cursive; color: #b39ab0; font-size: 13px; }
+  .cart-panel-footer{ padding: 12px 16px; border-top: 2px solid var(--pink-pale); background: var(--pink-pale); }
+  .cart-total{
+    display: flex; justify-content: space-between;
+    font-family: 'Baloo 2', cursive; font-weight: 700; color: var(--ink);
+    margin-bottom: 8px; font-size: 14px;
+  }
+  .cart-total span:last-child{ color: var(--pink-deep); }
+  .checkout-btn{
+    display: block; width: 100%;
+    background: var(--pink-deep); color: var(--white); border: none;
+    font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 14px;
+    padding: 10px; border-radius: 20px; cursor: pointer;
+    box-shadow: 0 4px 0 #b8386f;
+  }
+
+  /* ---------- TOAST ---------- */
+  .toast{
+    position: fixed; left: 50%; bottom: 26px;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--pink-deep); color: var(--white);
+    font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 14px;
+    padding: 12px 22px; border-radius: 30px;
+    box-shadow: var(--shadow-pop);
+    opacity: 0; pointer-events: none;
+    transition: opacity .3s ease, transform .3s ease;
+    z-index: 100; white-space: nowrap;
+  }
+  .toast.show{ opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ---------- PAGE TITLE ---------- */
+  .page-title{ text-align: center; padding: 26px 20px 4px; }
+  .page-title h2{
+    font-family: 'Fredoka', cursive; color: var(--pink-deep);
+    font-size: clamp(22px, 4vw, 30px); margin: 0 0 6px;
+  }
+  .page-title p{
+    font-family: 'Baloo 2', cursive; color: var(--plum-text); font-size: 14px; margin: 0;
+  }
+
+  /* ---------- MAIN LAYOUT: SIDEBAR KIRI - CONTENT - SIDEBAR KANAN ---------- */
+  main.layout{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
+  aside, section.content{ padding: 22px; }
+  aside.left{ flex: 1 1 210px; background: var(--mint-pale); }
+  aside.right{ flex: 1 1 210px; background: var(--butter-pale); }
+  section.content{ flex: 4 1 480px; }
+
+  .sidebar-sticky{ position: sticky; top: 20px; }
+
+  aside h3{
+    font-family: 'Baloo 2', cursive; font-size: 16px; margin: 0 0 4px;
+    display: flex; align-items: center; gap: 6px; justify-content: center;
+  }
+  aside.left h3{ color: #2f6b45; }
+  aside.right h3{ color: #a9750b; }
+  aside hr{
+    border: none; border-top: 2px dotted currentColor; opacity: .4;
+    width: 70%; margin: 6px auto 14px;
+  }
+
+  .jump-nav{
+    display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px;
+  }
+  .jump-nav a{
+    text-decoration: none;
+    font-family: 'Baloo 2', cursive;
+    font-size: 13px;
+    background: var(--white);
+    color: #2f6b45;
+    border: 2px solid #bfe3ca;
+    border-radius: 20px;
+    padding: 7px 12px;
+    text-align: center;
+    transition: all .15s ease;
+  }
+  .jump-nav a:hover{ background: #2f6b45; color: var(--white); transform: translateX(3px); }
+
+  .box{
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    line-height: 1.55;
+    box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  }
+  aside.left .box{ border: 2px solid #cdeed7; }
+  aside.right .box{ border: 2px solid #ffe6a8; }
+
+  table.size-chart{
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 4px;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  table.size-chart th{
+    background: var(--butter);
+    color: #7a5b00;
+    padding: 5px;
+    font-family: 'Baloo 2', cursive;
+  }
+  table.size-chart th:first-child{ border-radius: 8px 0 0 8px; }
+  table.size-chart th:last-child{ border-radius: 0 8px 8px 0; }
+  table.size-chart td{
+    background: var(--white);
+    padding: 5px;
+    text-align: center;
+    border-top: 2px solid var(--butter-pale);
+    border-bottom: 2px solid var(--butter-pale);
+  }
+
+  /* ---------- DETAIL CARDS ---------- */
+  .detail-list{ display: flex; flex-direction: column; gap: 22px; }
+  .detail-card{
+    display: flex; flex-wrap: wrap;
+    background: var(--pink-pale);
+    border: 2px solid var(--pink-soft);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    scroll-margin-top: 20px;
+    transition: box-shadow .2s ease;
+  }
+  .detail-card:nth-child(even){ background: var(--mint-pale); border-color: #bfe3ca; }
+  .detail-card:hover{ box-shadow: var(--shadow-pop); }
+
+  .detail-img{
+    flex: 1 1 220px;
+    display: flex; align-items: flex-start; justify-content: center;
+    padding: 22px 18px;
+  }
+  .detail-img .frame{
+    background: var(--white);
+    border-radius: 16px;
+    padding: 10px;
+    box-shadow: 0 6px 14px rgba(0,0,0,.08);
+  }
+  .detail-img img{
+    width: 100%; max-width: 220px;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+  }
+
+  .detail-info{ flex: 2 1 300px; padding: 22px 24px; }
+  .detail-info h3{
+    font-family: 'Fredoka', cursive;
+    color: var(--pink-deep);
+    font-size: 19px;
+    margin: 0 0 8px;
+  }
+  .detail-info p.desc{
+    font-size: 13px;
+    color: #6b5568;
+    line-height: 1.6;
+    margin: 0 0 12px;
+  }
+  .detail-info .price{
+    font-family: 'Fredoka', cursive;
+    color: var(--pink-deep);
+    font-size: 19px;
+    margin: 0 0 12px;
+  }
+  .detail-info ul.specs{
+    list-style: none; margin: 0 0 14px; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .detail-info ul.specs li{
+    background: var(--white);
+    border: 2px solid rgba(0,0,0,.06);
+    border-radius: 16px;
+    padding: 5px 12px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .option-row{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .option-row label{
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .size-select{
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    padding: 7px 12px;
+    border-radius: 14px;
+    border: 2px solid var(--pink-soft);
+    background: var(--white);
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .buy-row{ display: flex; align-items: center; flex-wrap: wrap; gap: 14px; }
+  .qty-box{
+    display: flex; align-items: center; gap: 8px;
+    background: var(--white);
+    border: 2px solid var(--pink-soft);
+    border-radius: 20px;
+    padding: 4px 6px;
+  }
+  .qty-box button{
+    width: 26px; height: 26px; border-radius: 50%; border: none;
+    background: var(--pink-soft); color: var(--pink-deep);
+    font-weight: 700; cursor: pointer; font-size: 14px; line-height: 1;
+  }
+  .qty-box span{
+    min-width: 18px; text-align: center;
+    font-family: 'Baloo 2', cursive; font-weight: 700;
+  }
+
+  .buy-btn{
+    background: var(--pink-deep); color: var(--white); border: none;
+    font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 14px;
+    padding: 10px 22px; border-radius: 20px; cursor: pointer;
+    box-shadow: 0 4px 0 #b8386f;
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .buy-btn:hover{ transform: translateY(2px); box-shadow: 0 2px 0 #b8386f; }
+  .buy-btn:active{ transform: translateY(4px); box-shadow: 0 0 0 #b8386f; }
+
+  footer{
+    text-align: center; padding: 18px;
+    background: var(--pink-deep); color: var(--white);
+    font-family: 'Baloo 2', cursive; font-size: 13px;
+  }
+
+  @media (max-width: 500px){ .doodle{ display: none; } }
+</style>
+</head>
+<body>
+
+<div class="cart-wrap">
+  <div class="cart-btn" id="cartBtn">🛍️<span class="cart-count" id="cartCount">0</span></div>
+  <div class="cart-panel" id="cartPanel">
+    <div class="cart-panel-header">
+      <span>🛒 Keranjang Belanja</span>
+      <button id="closeCart">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <p class="cart-empty">Keranjang masih kosong 🎀<br>Yuk pilih produk favoritmu!</p>
+    </div>
+    <div class="cart-panel-footer">
+      <div class="cart-total">
+        <span>Total:</span>
+        <span id="cartTotalPrice">Rp0</span>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn">Checkout Sekarang ✨</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<span class="doodle" style="top:8%; left:3%;">🎀</span>
+<span class="doodle" style="top:60%; left:2%; animation-delay:1s;">⭐</span>
+<span class="doodle" style="top:20%; right:4%; animation-delay:2s;">💗</span>
+<span class="doodle" style="top:75%; right:3%; animation-delay:1.5s;">🧸</span>
+
+<div class="wrapper">
+
+  <!-- ========== HEADER ========== -->
+  <header class="brand">
+    <h1>🎀 Detail Produk 🎀</h1>
+  </header>
+  <svg class="wave" viewBox="0 0 1200 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,20 C150,45 350,0 600,20 C850,40 1050,0 1200,20 L1200,0 L0,0 Z" fill="#e8579d"></path>
+  </svg>
+
+  <!-- ========== MARQUEE ========== -->
+  <marquee class="promo-marquee" behavior="scroll" direction="left" scrollamount="5">
+    🎀 GRATIS ONGKIR se-Jabodetabek min. belanja Rp150.000 &nbsp;•&nbsp; 🔥 DISKON 10% pembelian pertama pakai kode CIPA10 &nbsp;•&nbsp; ✨ Koleksi terbaru masuk tiap minggu &nbsp;•&nbsp; 💗 Cipa Kids Fashion, dress up your little princess!
+  </marquee>
+
+  <!-- ========== MENU ========== -->
+  <nav class="menu">
+    <ul>
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="tentang perusahaan.html">🏢 Tentang Perusahaan</a></li>
+      <li><a href="produk.html">👗 Produk</a></li>
+      <li><a href="detail%20produk.html" class="active">🔍 Detail Produk</a></li>
+      <li><a href="transaksi.html">🛒 Transaksi</a></li>
+      <li><a href="invoice.html">🧾 Invoice</a></li>
+      <li><a href="kontak.html">📞 Kontak & Biodata</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-title">
+    <h2>💖 Detail Produk 💖</h2>
+    <p>Info lengkap tiap produk, pilih ukuran & jumlah, langsung masukkan ke keranjang!</p>
+  </div>
+
+  <!-- ========== MAIN: SIDEBAR KIRI - CONTENT - SIDEBAR KANAN ========== -->
+  <main class="layout">
+
+    <!-- SIDEBAR KIRI: navigasi cepat -->
+    <aside class="left">
+      <div class="sidebar-sticky">
+        <h3>🔎 Lompat ke Produk</h3>
+        <hr>
+        <div class="jump-nav">
+          <a href="#p1">1. Dress Salur</a>
+          <a href="#p2">2. Kaos</a>
+          <a href="#p3">3. Kemeja Korean</a>
+          <a href="#p4">4. Flatshoes</a>
+          <a href="#p5">5. Jepit Rambut</a>
+          <a href="#p6">6. Tas Sekolah</a>
+          <a href="#p7">7. Rok Mini</a>
+          <a href="#p8">8. Cardigan</a>
+          <a href="#p9">9. One Set</a>
+        </div>
+
+        <h3>💌 Tips Belanja</h3>
+        <hr>
+        <div class="box">
+          Cek dulu Panduan Ukuran di sidebar kanan sebelum pilih ukuran ya, biar pas di badan si kecil! 🥰
+        </div>
+      </div>
+    </aside>
+
+    <!-- CONTENT: detail tiap produk -->
+    <section class="content">
+      <div class="detail-list">
+
+        <div class="detail-card" id="p1">
+          <div class="detail-img"><div class="frame"><img src="dress 1.jpeg" alt="Dress Salur"></div></div>
+          <div class="detail-info" data-name="Dress Salur" data-price="130000">
+            <h3>1. Dress Salur</h3>
+            <p class="desc">Dress anak dengan desain cantik dan nyaman untuk digunakan dalam berbagai kesempatan. Terbuat dari bahan yang lembut dan ringan sehingga nyaman dipakai sepanjang hari. Cocok untuk jalan-jalan, pesta ulang tahun, acara keluarga, maupun aktivitas sehari-hari.</p>
+            <p class="price">Rp130.000</p>
+            <ul class="specs">
+              <li>🧵 Bahan Katun Premium</li>
+              <li>📏 Ukuran S - XL</li>
+              <li>🎨 Warna Pastel</li>
+            </ul>
+            <div class="option-row">
+              <label for="size1">Ukuran:</label>
+              <select class="size-select" id="size1">
+                <option value="S">S (1-2 Thn)</option>
+                <option value="M">M (3-4 Thn)</option>
+                <option value="L">L (5-6 Thn)</option>
+                <option value="XL">XL (7-8 Thn)</option>
+              </select>
+            </div>
+            <div class="buy-row">
+              <div class="qty-box"><button class="dec">−</button><span class="qty">1</span><button class="inc">+</button></div>
+              <button class="buy-btn">Beli Sekarang 🛒</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-card" id="p2">
+          <div class="detail-img"><div class="frame"><img src="kaos.jpeg" alt="Kaos"></div></div>
+          <div class="detail-info" data-name="Kaos" data-price="80000">
+            <h3>2. Kaos</h3>
+            <p class="desc">Kaos anak yang nyaman digunakan untuk aktivitas sehari-hari. Terbuat dari bahan katun yang lembut, ringan, dan mudah menyerap keringat. Cocok untuk bermain, belajar, maupun jalan-jalan.</p>
+            <p class="price">Rp80.000</p>
+            <ul class="specs">
+              <li>🧵 Bahan Cotton Combed</li>
+              <li>📏 Ukuran S - L</li>
+              <li>☁️ Lembut dan Nyaman</li>
+            </ul>
+            <div class="option-row">
+              <label for="size2">Ukuran:</label>
+              <select class="size-select" id="size2">
+                <option value="S">S (1-2 Thn)</option>
+                <option value="M">M (3-4 Thn)</option>
+                <option value="L">L (5-6 Thn)</option>
+              </select>
+            </div>
+            <div class="buy-row">
+              <div class="qty-box"><button class="dec">−</button><span class="qty">1</span><button class="inc">+</button></div>
+              <button class="buy-btn">Beli Sekarang 🛒</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-card" id="p3">
+          <div class="detail-img"><div class="frame"><img src="kemeja.jpeg" alt="Kemeja Korean Style"></div></div>
+          <div class="detail-info" data-name="Kemeja Korean Style" data-price="120000">
+            <h3>3. Kemeja Korean Style</h3>
+            <p class="desc">Kemeja Korean Style Anak dengan desain simpel dan modern yang membuat penampilan anak lebih stylish. Terbuat dari bahan katun yang lembut, nyaman dipakai, dan aman untuk kulit anak.</p>
+            <p class="price">Rp120.000</p>
+            <ul class="specs">
+              <li>🧵 Bahan Halus & Katun Premium</li>
+              <li>📏 Ukuran S - XL</li>
+              <li>🎨 Berbagai Macam Motif</li>
+            </ul>
+            <div class="option-row">
+              <label for="size3">Ukuran:</label>
+              <select class="size-select" id="size3">
+                <option value="S">S (1-2 Thn)</option>
+                <option value="M">M (3-4 Thn)</option>
+                <option value="L">L (5-6 Thn)</option>
+                <option value="XL">XL (7-8 Thn)</option>
+              </select>
+            </div>
+            <div class="buy-row">
+              <div class="qty-box"><button class="dec">−</button><span class="qty">1</span><button class="inc">+</button></div>
+              <button class="buy-btn">Beli Sekarang 🛒</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-card" id="p4">
+          <div class="detail-img"><div class="frame"><img src="sepatu.jpeg" alt="Flatshoes"></div></div>
+          <div class="detail-info" data-name="Flatshoes" data-price="150000">
+            <h3>4. Flatshoes</h3>
+            <p class="desc">Flat shoes anak dengan desain lucu dan nyaman untuk digunakan sehari-hari maupun acara khusus. Sol ringan dan tidak licin sehingga aman saat digunakan.</p>
+            <p class="price">Rp150.000</p>
+            <ul class="specs">
+              <li>🧵 Bahan Kulit Sintesis Premium</li>
+              <li>📏 Ukuran 21 - 28</li>
+              <li>🎨 Berbagai Macam Warna</li>
+            </ul>
+            <div class="option-row">
+              <label for="size4">Ukuran:</label>
+              <select class="size-select" id="size4">
+                <option value="21">21</option>
+                <option value="23">23</option>
+                <option value="25">25</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+              </select>
+            </div>
+            <div class="buy-row">
+              <div class="qty-box"><button class="dec">−</button><span class="qty">1</span><button class="inc">+</button></div>
+              <button class="buy-btn">Beli Sekarang 🛒</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-card" id="p5">
+          <div class="detail-img"><div class="frame"><img src="jepit.jpeg" alt="Jepit Rambut"></div></div>
+          <div class="detail-info" data-name="Jepit Rambut" data-price="35000">
+            <h3>5. Jepit Rambut</h3>
+            <p class="desc">Jepitan rambut anak dengan desain lucu dan warna menarik yang dapat mempercantik penampilan anak. Cocok untuk berbagai gaya rambut dan berbagai acara.</p>
+            <p class="price">Rp35.000</p>
+            <ul class="specs">
+              <li>🧵 Kain Pita & Logam</li>
+              <li>🎨 Berbagai Macam Warna</li>
+              <li>✨ Berbagai Macam Model</li>
+            </ul>
+            <div class="buy-row">
+              <div class="qty-box"><button class="dec">−</button><span class="qty">1</span><button class="inc">+</button></div>
+              <button class="buy-btn">Beli Sekarang 🛒</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-card" id="p6">
+          <div class="detail-img"><div class="frame"><img src="tas.jpeg" alt="Tas Sekolah"></div></div>
+          <div class="detail-info" data-name="Tas Sekolah" data-price="130000">
+            <h3>6. Tas Sekolah</h3>
+            <p class="desc">Tas sekolah anak dengan desain menarik dan nyaman digunakan untuk kegiatan sekolah sehari-hari. Dilengkapi tali bahu yang nyaman dan beberapa kompartemen.</p>
+            <p class="price">Rp130.000</p>
+            <ul class="specs">
+              <li>📏 Ukuran All Size</li>
+              <li>🎨 Pink, Biru, Ungu</li>
+              <li>🎒 Tali Adjustable</li>
+            </ul>
+            <div class="buy-row">
+              <div class="qty-box"><button class="dec">−</button><span class="qty">1</span><button class="inc">+</button></div>
+              <button class="buy-btn">Beli Sekarang 🛒</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-card" id="p7">
+          <div class="detail-img"><div class="frame"><img src="rok.jpeg" alt="Rok Mini"></div></div>
+          <div class="detail-info" data-name="Rok Mini" data-price="85000">
+            <h3>7. Rok Mini</h3>
+            <p class="desc">Rok mini anak dengan desain lucu dan modis yang cocok digunakan untuk aktivitas sehari-hari maupun acara santai. Mudah dipadukan dengan berbagai atasan.</p>
+            <p class="price">Rp85.000</p>
+            <ul class="specs">
+              <li>🧵 Bahan Katun</li>
+              <li>📏 Ukuran S - L</li>
+              <li>🎨 Pink, Biru, Lemon, Cream</li>
+            </ul>
+            <div class="option-row">
+              <label for="size7">Ukuran:</label>
+              <select class="size-select" id="size7">
+                <option value="S">S (1-2 Thn)</option>
+                <option value="M">M (3-4 Thn)</option>
+                <option value="L">L (5-6 Thn)</option>
+              </select>
+            </div>
+            <div class="buy-row">
+              <div class="qty-box"><button class="dec">−</button><span class="qty">1</span><button class="inc">+</button></div>
+              <button class="buy-btn">Beli Sekarang 🛒</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-card" id="p8">
+          <div class="detail-img"><div class="frame"><img src="cardigan.jpeg" alt="Cardigan"></div></div>
+          <div class="detail-info" data-name="Cardigan" data-price="100000">
+            <h3>8. Cardigan</h3>
+            <p class="desc">Cardigan anak yang nyaman dan stylish untuk melengkapi penampilan si kecil. Bahan lembut dan hangat, cocok saat cuaca sejuk maupun pelengkap outfit sehari-hari.</p>
+            <p class="price">Rp100.000</p>
+            <ul class="specs">
+              <li>🧵 Bahan Rajut Premium</li>
+              <li>📏 Ukuran S - XL</li>
+              <li>✨ Model Kekinian</li>
+            </ul>
+            <div class="option-row">
+              <label for="size8">Ukuran:</label>
+              <select class="size-select" id="size8">
+                <option value="S">S (1-2 Thn)</option>
+                <option value="M">M (3-4 Thn)</option>
+                <option value="L">L (5-6 Thn)</option>
+                <option value="XL">XL (7-8 Thn)</option>
+              </select>
+            </div>
+            <div class="buy-row">
+              <div class="qty-box"><button class="dec">−</button><span class="qty">1</span><button class="inc">+</button></div>
+              <button class="buy-btn">Beli Sekarang 🛒</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-card" id="p9">
+          <div class="detail-img"><div class="frame"><img src="oneset.jpeg" alt="One Set"></div></div>
+          <div class="detail-info" data-name="One Set" data-price="115000">
+            <h3>9. One Set</h3>
+            <p class="desc">One set anak dengan desain modern dan nyaman digunakan untuk berbagai aktivitas sehari-hari. Terdiri dari atasan dan bawahan yang serasi, bahan lembut dan ringan.</p>
+            <p class="price">Rp115.000</p>
+            <ul class="specs">
+              <li>🧵 Katun, Rayon, Jeans Premium</li>
+              <li>📏 Ukuran S - XL</li>
+              <li>✨ Model Kekinian</li>
+            </ul>
+            <div class="option-row">
+              <label for="size9">Ukuran:</label>
+              <select class="size-select" id="size9">
+                <option value="S">S (1-2 Thn)</option>
+                <option value="M">M (3-4 Thn)</option>
+                <option value="L">L (5-6 Thn)</option>
+                <option value="XL">XL (7-8 Thn)</option>
+              </select>
+            </div>
+            <div class="buy-row">
+              <div class="qty-box"><button class="dec">−</button><span class="qty">1</span><button class="inc">+</button></div>
+              <button class="buy-btn">Beli Sekarang 🛒</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SIDEBAR KANAN: panduan ukuran -->
+    <aside class="right">
+      <div class="sidebar-sticky">
+        <h3>📏 Panduan Ukuran</h3>
+        <hr>
+        <table class="size-chart">
+          <tr><th>Size</th><th>Usia</th><th>LD</th></tr>
+          <tr><td>S</td><td>1-2 Thn</td><td>30 cm</td></tr>
+          <tr><td>M</td><td>3-4 Thn</td><td>34 cm</td></tr>
+          <tr><td>L</td><td>5-6 Thn</td><td>38 cm</td></tr>
+          <tr><td>XL</td><td>7-8 Thn</td><td>42 cm</td></tr>
+        </table>
+        <div class="box">
+          <i>*LD = Lebar Dada (diukur dari ketiak kiri ke kanan baju).</i> Ukur langsung badan si kecil ya, jangan cuma patokan umur!
+        </div>
+
+        <h3>🚚 Info Pengiriman</h3>
+        <hr>
+        <div class="box">
+          Pesanan diproses 1x24 jam. Gratis ongkir min. belanja Rp150.000 khusus area Jabodetabek.
+        </div>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <b>&copy; 2026 Cipa Kids Fashion. Made with 💗 for little princess.</b>
+  </footer>
+
+</div>
+
+<script>
+  // ---------- Selector qty per produk ----------
+  document.querySelectorAll('.detail-info').forEach(info => {
+    const qtyEl = info.querySelector('.qty');
+    info.querySelector('.inc').addEventListener('click', () => {
+      qtyEl.textContent = parseInt(qtyEl.textContent, 10) + 1;
+    });
+    info.querySelector('.dec').addEventListener('click', () => {
+      const current = parseInt(qtyEl.textContent, 10);
+      if (current > 1) qtyEl.textContent = current - 1;
+    });
+  });
+
+  // ---------- Keranjang & Toast ----------
+  function loadCart(){
+    try {
+      const saved = localStorage.getItem('cipaCart');
+      return saved ? JSON.parse(saved) : {};
+    } catch (err) {
+      return {};
+    }
+  }
+  function saveCart(){
+    try {
+      localStorage.setItem('cipaCart', JSON.stringify(cart));
+    } catch (err) {
+      console.warn('localStorage tidak tersedia:', err);
+    }
+  }
+
+  let cart = loadCart();
+  let cartTotal = 0;
+
+  const cartCountEl    = document.getElementById('cartCount');
+  const cartBtn         = document.getElementById('cartBtn');
+  const cartPanel        = document.getElementById('cartPanel');
+  const closeCartBtn     = document.getElementById('closeCart');
+  const cartItemsEl      = document.getElementById('cartItems');
+  const cartTotalPriceEl = document.getElementById('cartTotalPrice');
+  const checkoutBtn      = document.getElementById('checkoutBtn');
+  const toastEl = document.getElementById('toast');
+  let toastTimer = null;
+
+  function formatRupiah(num){ return 'Rp' + num.toLocaleString('id-ID'); }
+
+  function showToast(text){
+    toastEl.textContent = text;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
+  }
+
+  function renderCart(){
+    const keys = Object.keys(cart);
+    cartTotal = 0;
+    let totalPrice = 0;
+
+    if (keys.length === 0){
+      cartItemsEl.innerHTML = '<p class="cart-empty">Keranjang masih kosong 🎀<br>Yuk pilih produk favoritmu!</p>';
+    } else {
+      cartItemsEl.innerHTML = keys.map(key => {
+        const item = cart[key];
+        cartTotal += item.qty;
+        totalPrice += item.qty * item.price;
+        return `
+          <div class="cart-item" data-key="${key}">
+            <div class="info">
+              <span class="nm">${item.name}</span>
+              <span class="pr">${formatRupiah(item.price)}</span>
+            </div>
+            <div class="qty-controls">
+              <button class="dec">−</button>
+              <span>${item.qty}</span>
+              <button class="inc">+</button>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    cartCountEl.textContent = cartTotal;
+    cartTotalPriceEl.textContent = formatRupiah(totalPrice);
+    saveCart();
+  }
+
+  renderCart();
+
+  cartItemsEl.addEventListener('click', (e) => {
+    const row = e.target.closest('.cart-item');
+    if (!row) return;
+    const key = row.dataset.key;
+    if (e.target.classList.contains('inc')){
+      cart[key].qty++;
+    } else if (e.target.classList.contains('dec')){
+      cart[key].qty--;
+      if (cart[key].qty <= 0) delete cart[key];
+    }
+    renderCart();
+  });
+
+  cartBtn.addEventListener('click', () => cartPanel.classList.toggle('open'));
+  closeCartBtn.addEventListener('click', () => cartPanel.classList.remove('open'));
+  document.addEventListener('click', (e) => {
+    if (!cartPanel.contains(e.target) && !cartBtn.contains(e.target)){
+      cartPanel.classList.remove('open');
+    }
+  });
+
+  checkoutBtn.addEventListener('click', () => {
+    if (cartTotal === 0){
+      showToast('Keranjang masih kosong ya 🎀');
+      return;
+    }
+    showToast('Menuju halaman transaksi... 🛒');
+    setTimeout(() => { window.location.href = 'transaksi.html'; }, 900);
+  });
+
+  // ---------- Tombol "Beli Sekarang" tiap produk ----------
+  document.querySelectorAll('.detail-info').forEach(info => {
+    const baseName = info.dataset.name;
+    const price = parseInt(info.dataset.price, 10);
+    const buyBtn = info.querySelector('.buy-btn');
+    const qtyEl  = info.querySelector('.qty');
+    const sizeSelect = info.querySelector('.size-select');
+
+    buyBtn.addEventListener('click', () => {
+      const qty = parseInt(qtyEl.textContent, 10);
+      const size = sizeSelect ? sizeSelect.value : null;
+      const key  = size ? `${baseName} (${size})` : baseName;
+      const displayName = size ? `${baseName} - Size ${size}` : baseName;
+
+      if (!cart[key]) cart[key] = { name: displayName, price, qty: 0 };
+      cart[key].qty += qty;
+      renderCart();
+
+      showToast(`💗 ${displayName} x${qty} ditambahkan ke keranjang!`);
+
+      buyBtn.textContent = 'Ditambahkan ✓';
+      buyBtn.style.background = '#2f6b45';
+      buyBtn.style.boxShadow = '0 4px 0 #1f4b30';
+      setTimeout(() => {
+        buyBtn.textContent = 'Beli Sekarang 🛒';
+        buyBtn.style.background = '';
+        buyBtn.style.boxShadow = '';
+        qtyEl.textContent = '1';
+      }, 1200);
+    });
+  });
+</script>
+
+</body>
+</html>

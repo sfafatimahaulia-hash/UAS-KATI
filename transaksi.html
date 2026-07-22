@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Transaksi - Cipa Kids Fashion</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:        #ff8fb1;
+    --pink-deep:   #e8579d;
+    --pink-soft:   #ffd3e0;
+    --pink-pale:   #fff0f5;
+    --mint:        #9fe3c4;
+    --mint-pale:   #eafaf2;
+    --butter:      #ffe08a;
+    --butter-pale: #fff7dd;
+    --plum-text:   #7a3b63;
+    --ink:         #5a3552;
+    --white:       #ffffff;
+    --radius-lg:   28px;
+    --radius-md:   18px;
+    --shadow-pop:  0 10px 24px rgba(232, 87, 157, 0.22);
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 8% 12%, #ffe1ea 0, transparent 45%),
+      radial-gradient(circle at 92% 20%, #e3d5ff 0, transparent 40%),
+      radial-gradient(circle at 15% 90%, #d6f5e6 0, transparent 40%),
+      #fff8fa;
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+  .doodle{
+    position: fixed; font-size: 26px; opacity: .55;
+    pointer-events: none; animation: float 6s ease-in-out infinite; z-index: 0;
+  }
+  @keyframes float{
+    0%,100%{ transform: translateY(0) rotate(0deg); }
+    50%{ transform: translateY(-18px) rotate(8deg); }
+  }
+
+  .wrapper{
+    position: relative; z-index: 1;
+    max-width: 1220px; margin: 22px auto;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-pop);
+    border: 3px solid var(--pink-soft);
+  }
+
+  /* ---------- HEADER ---------- */
+  header.brand{
+    position: relative; text-align: center; padding: 34px 20px 40px;
+    background: linear-gradient(135deg, var(--pink) 0%, var(--pink-deep) 100%);
+    color: var(--white); overflow: hidden;
+  }
+  header.brand::before, header.brand::after{
+    content: "✨"; position: absolute; font-size: 22px; opacity: .8;
+  }
+  header.brand::before{ top: 16px; left: 6%; }
+  header.brand::after{ bottom: 20px; right: 7%; }
+  header.brand h1{
+    font-family: 'Fredoka', cursive;
+    font-size: clamp(24px, 5vw, 40px);
+    margin: 0 0 4px; text-shadow: 0 3px 0 rgba(0,0,0,.08); letter-spacing: .5px;
+  }
+  header.brand h2{
+    font-family: 'Baloo 2', cursive;
+    font-size: 16px; margin: 0; font-weight: 700; opacity: .95;
+  }
+  .wave{ display: block; width: 100%; line-height: 0; margin-top: -2px; }
+
+  /* ---------- MARQUEE ---------- */
+  marquee.promo-marquee{
+    background: var(--ink); color: var(--butter);
+    font-family: 'Baloo 2', cursive; font-size: 14px;
+    padding: 8px 0; letter-spacing: .5px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav.menu{ background: var(--pink-pale); border-bottom: 3px dashed var(--pink); }
+  nav.menu ul{
+    list-style: none; display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 10px; margin: 0; padding: 14px 12px;
+  }
+  nav.menu a{
+    text-decoration: none; color: var(--pink-deep);
+    font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 15px;
+    padding: 8px 16px; border-radius: 20px; background: var(--white);
+    border: 2px solid var(--pink-soft); transition: all .2s ease; display: inline-block;
+  }
+  nav.menu a.active{ background: var(--pink-deep); color: var(--white); }
+  nav.menu a:hover{
+    background: var(--pink-deep); color: var(--white);
+    transform: translateY(-3px) rotate(-2deg);
+    box-shadow: 0 6px 12px rgba(232,87,157,.3);
+  }
+
+  /* ---------- TOAST ---------- */
+  .toast{
+    position: fixed; left: 50%; bottom: 26px;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--pink-deep); color: var(--white);
+    font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 14px;
+    padding: 12px 22px; border-radius: 30px; box-shadow: var(--shadow-pop);
+    opacity: 0; pointer-events: none;
+    transition: opacity .3s ease, transform .3s ease;
+    z-index: 100; text-align: center; max-width: 90%;
+  }
+  .toast.show{ opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ---------- PAGE TITLE ---------- */
+  .page-title{ text-align: center; padding: 26px 20px 4px; }
+  .page-title h2{
+    font-family: 'Fredoka', cursive; color: var(--pink-deep);
+    font-size: clamp(22px, 4vw, 30px); margin: 0 0 6px;
+  }
+  .page-title p{
+    font-family: 'Baloo 2', cursive; color: var(--plum-text); font-size: 14px; margin: 0;
+  }
+
+  /* ---------- MAIN LAYOUT ---------- */
+  main.layout{ display: flex; flex-wrap: wrap; align-items: stretch; }
+  aside, section.content{ padding: 22px; }
+  aside.left{ flex: 1 1 210px; background: var(--mint-pale); }
+  aside.right{ flex: 1 1 230px; background: var(--butter-pale); }
+  section.content{ flex: 3 1 440px; }
+  .sidebar-sticky{ position: sticky; top: 20px; }
+
+  aside h3{
+    font-family: 'Baloo 2', cursive; font-size: 16px; margin: 0 0 4px;
+    display: flex; align-items: center; gap: 6px; justify-content: center;
+  }
+  aside.left h3{ color: #2f6b45; }
+  aside.right h3{ color: #a9750b; }
+  aside hr{
+    border: none; border-top: 2px dotted currentColor; opacity: .4;
+    width: 70%; margin: 6px auto 14px;
+  }
+  .box{
+    background: var(--white); border-radius: var(--radius-md);
+    padding: 12px 14px; margin-bottom: 16px; font-size: 13px; line-height: 1.55;
+    box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  }
+  aside.left .box{ border: 2px solid #cdeed7; }
+  aside.right .box{ border: 2px solid #ffe6a8; }
+
+  .steps{ list-style: none; margin: 0; padding: 0; text-align: left; }
+  .steps li{
+    background: var(--white); border-radius: 14px; padding: 8px 12px;
+    margin-bottom: 8px; font-size: 12.5px; border: 2px solid #cdeed7;
+  }
+  .steps b{ color: #2f6b45; }
+
+  /* ---------- FORM ---------- */
+  .form-card{
+    background: var(--pink-pale);
+    border: 2px solid var(--pink-soft);
+    border-radius: var(--radius-lg);
+    padding: 22px 24px;
+  }
+  .form-card h3{
+    font-family: 'Fredoka', cursive; color: var(--pink-deep);
+    font-size: 19px; margin: 0 0 16px; text-align: center;
+  }
+
+  .field{ margin-bottom: 16px; }
+  .field label{
+    display: block; font-family: 'Baloo 2', cursive; font-weight: 700;
+    font-size: 13.5px; color: var(--ink); margin-bottom: 5px;
+  }
+  .field input[type="text"],
+  .field input[type="number"],
+  .field textarea,
+  .field select{
+    width: 100%;
+    font-family: 'Nunito', sans-serif;
+    font-size: 13.5px;
+    padding: 10px 14px;
+    border-radius: 14px;
+    border: 2px solid var(--pink-soft);
+    background: var(--white);
+    color: var(--ink);
+  }
+  .field input:focus, .field textarea:focus, .field select:focus{
+    outline: none; border-color: var(--pink-deep);
+  }
+  .field textarea{ resize: vertical; min-height: 80px; }
+
+  .field-row{ display: flex; gap: 12px; flex-wrap: wrap; }
+  .field-row .field{ flex: 1 1 160px; }
+  .field .hint{ font-size: 11px; color: #a9799a; font-weight: 400; font-family: 'Nunito', sans-serif; }
+
+  .field input[type="date"],
+  .field input[type="file"]{
+    width: 100%;
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    padding: 9px 12px;
+    border-radius: 14px;
+    border: 2px solid var(--pink-soft);
+    background: var(--white);
+    color: var(--ink);
+  }
+
+  .agree-row{
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 12.5px; margin: 16px 0 4px;
+  }
+  .agree-row input{ margin-top: 3px; accent-color: var(--pink-deep); width: 16px; height: 16px; flex-shrink: 0; }
+
+  .field.error input, .field.error textarea, .field.error select{ border-color: #d64545; }
+  .field .error-msg{ display: none; color: #d64545; font-size: 11.5px; margin-top: 4px; font-weight: 700; }
+  .field.error .error-msg{ display: block; }
+
+  .radio-group{ display: flex; flex-wrap: wrap; gap: 10px; }
+  .radio-pill{ position: relative; }
+  .radio-pill input{ position: absolute; opacity: 0; }
+  .radio-pill label{
+    display: block; background: var(--white);
+    border: 2px solid var(--pink-soft); border-radius: 16px;
+    padding: 9px 16px; font-family: 'Baloo 2', cursive; font-weight: 700;
+    font-size: 13px; cursor: pointer; transition: all .15s ease;
+  }
+  .radio-pill input:checked + label{
+    border-color: var(--pink-deep); background: var(--pink-deep); color: var(--white);
+  }
+
+  .payment-detail{
+    display: none; background: var(--white);
+    border: 2px dashed var(--pink-deep); border-radius: 14px;
+    padding: 10px 14px; font-size: 12.5px; margin-top: 10px; line-height: 1.6;
+  }
+  .payment-detail.show{ display: block; }
+
+  .subtotal-box{
+    background: var(--white);
+    border: 2px solid var(--pink-soft);
+    border-radius: 14px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .subtotal-box span:last-child{ color: var(--pink-deep); font-family: 'Fredoka', cursive; font-size: 16px; }
+
+  .cart-order-row{
+    display: flex; align-items: center; gap: 10px;
+    background: var(--white); border: 2px solid var(--pink-soft);
+    border-radius: 14px; padding: 8px 12px; margin-bottom: 8px;
+  }
+  .cart-order-row .coi-name{
+    flex: 1; font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 13px; color: var(--ink);
+  }
+  .cart-order-row .coi-price{
+    font-family: 'Fredoka', cursive; color: var(--pink-deep); font-size: 12.5px; min-width: 70px; text-align: right;
+  }
+  .cart-order-row .coi-qty{
+    display: flex; align-items: center; gap: 6px;
+  }
+  .cart-order-row .coi-qty button{
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 2px solid var(--pink-soft); background: var(--pink-pale); color: var(--pink-deep);
+    font-weight: 700; cursor: pointer; line-height: 1; font-size: 12px;
+  }
+  .cart-order-row .coi-qty span{ min-width: 14px; text-align: center; font-weight: 700; font-size: 12.5px; }
+  .cart-order-row .coi-remove{
+    background: none; border: none; color: #d64545; font-size: 15px; cursor: pointer; line-height: 1;
+  }
+  .cart-note{
+    font-size: 11.5px; color: #a9799a; margin: 4px 0 12px;
+  }
+
+  .btn-row{ display: flex; gap: 12px; margin-top: 20px; }
+  .submit-btn, .reset-btn{
+    flex: 1;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 13px;
+    border-radius: 24px;
+    cursor: pointer;
+    border: none;
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .submit-btn{
+    background: var(--pink-deep); color: var(--white);
+    box-shadow: 0 5px 0 #b8386f;
+  }
+  .submit-btn:hover{ transform: translateY(2px); box-shadow: 0 3px 0 #b8386f; }
+  .submit-btn:active{ transform: translateY(5px); box-shadow: 0 0 0 #b8386f; }
+  .submit-btn:disabled{ background: #d8c3cf; box-shadow: 0 5px 0 #b8a5b0; cursor: not-allowed; }
+
+  .reset-btn{
+    background: var(--white); color: var(--pink-deep);
+    border: 2px solid var(--pink-soft);
+    box-shadow: 0 5px 0 var(--pink-soft);
+  }
+  .reset-btn:hover{ transform: translateY(2px); box-shadow: 0 3px 0 var(--pink-soft); }
+  .reset-btn:active{ transform: translateY(5px); box-shadow: 0 0 0 var(--pink-soft); }
+
+  .thanks-box{
+    margin-top: 20px;
+    background: var(--pink-deep);
+    color: var(--white);
+    text-align: center;
+    padding: 14px;
+    border-radius: 18px;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  footer{
+    text-align: center; padding: 18px;
+    background: var(--pink-deep); color: var(--white);
+    font-family: 'Baloo 2', cursive; font-size: 13px;
+  }
+
+  @media (max-width: 500px){ .doodle{ display: none; } }
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<span class="doodle" style="top:8%; left:3%;">🎀</span>
+<span class="doodle" style="top:60%; left:2%; animation-delay:1s;">⭐</span>
+<span class="doodle" style="top:20%; right:4%; animation-delay:2s;">💗</span>
+<span class="doodle" style="top:75%; right:3%; animation-delay:1.5s;">🧸</span>
+
+<div class="wrapper">
+
+  <!-- ========== HEADER ========== -->
+  <header class="brand">
+    <h1>🌸 Cipa Kids Fashion 🌸</h1>
+    <h2>Form Transaksi</h2>
+  </header>
+  <svg class="wave" viewBox="0 0 1200 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,20 C150,45 350,0 600,20 C850,40 1050,0 1200,20 L1200,0 L0,0 Z" fill="#e8579d"></path>
+  </svg>
+
+  <!-- ========== MARQUEE ========== -->
+  <marquee class="promo-marquee" behavior="scroll" direction="left" scrollamount="5">
+    🌸 Koleksi Terbaru &nbsp;•&nbsp; Diskon Menarik &nbsp;•&nbsp; Fashion Anak Kekinian &nbsp;•&nbsp; 🎀 Cipa Kids Fashion, dress up your little princess! 🎀
+  </marquee>
+
+  <!-- ========== MENU ========== -->
+  <nav class="menu">
+    <ul>
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="tentang perusahaan.html">🏢 Tentang Perusahaan</a></li>
+      <li><a href="produk.html">👗 Produk</a></li>
+      <li><a href="detail%20produk.html">🔍 Detail Produk</a></li>
+      <li><a href="transaksi.html" class="active">🛒 Transaksi</a></li>
+      <li><a href="invoice.html">🧾 Invoice</a></li>
+      <li><a href="kontak.html">📞 Kontak & Biodata</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-title">
+    <h2>💖 Data Pemesanan 💖</h2>
+    <p>Lengkapi form di bawah ini untuk memesan produk favoritmu</p>
+  </div>
+
+  <!-- ========== MAIN: SIDEBAR KIRI - CONTENT - SIDEBAR KANAN ========== -->
+  <main class="layout">
+
+    <!-- SIDEBAR KIRI -->
+    <aside class="left">
+      <div class="sidebar-sticky">
+        <h3>📝 Cara Pesan</h3>
+        <hr>
+        <ul class="steps">
+          <li><b>1.</b> Isi nama & alamat</li>
+          <li><b>2.</b> Pilih produk & jumlah</li>
+          <li><b>3.</b> Pilih ukuran</li>
+          <li><b>4.</b> Pilih metode pembayaran</li>
+          <li><b>5.</b> Klik "Kirim Pesanan"</li>
+        </ul>
+
+        <h3>💌 Butuh Bantuan?</h3>
+        <hr>
+        <div class="box">
+          Hubungi WhatsApp: 087812548352 kalau ada kendala saat mengisi form transaksi.
+        </div>
+      </div>
+    </aside>
+
+    <!-- CONTENT: FORM TRANSAKSI -->
+    <section class="content">
+      <div class="form-card">
+        <h3>🧾 Data Pemesanan</h3>
+
+        <form id="orderForm" novalidate>
+
+          <div class="field" id="fieldNama">
+            <label for="nama">Nama Pembeli</label>
+            <input type="text" id="nama" placeholder="Nama lengkap kamu">
+            <div class="error-msg">Nama pembeli wajib diisi 🎀</div>
+          </div>
+
+          <div class="field-row">
+            <div class="field" id="fieldHp">
+              <label for="hp">No. WhatsApp</label>
+              <input type="tel" id="hp" placeholder="08xxxxxxxxxx">
+              <div class="error-msg">No. WhatsApp wajib diisi</div>
+            </div>
+            <div class="field">
+              <label for="email">Email <span class="hint">(opsional)</span></label>
+              <input type="email" id="email" placeholder="nama@email.com">
+            </div>
+          </div>
+
+          <!-- PRODUK DARI KERANJANG (otomatis kalau ada) -->
+          <div class="field" id="fieldCartItems" style="display:none;">
+            <label>🛍️ Produk dari Keranjang</label>
+            <div id="cartItemsList"></div>
+          </div>
+
+          <!-- FALLBACK: pilih manual kalau keranjang kosong -->
+          <div id="manualPicker">
+            <div class="field" id="fieldProduk">
+              <label for="produk">Pilih Produk</label>
+              <select id="produk">
+                <option value="">-- Pilih Produk --</option>
+                <option data-price="130000">Dress Salur - Rp130.000</option>
+                <option data-price="80000">Kaos - Rp80.000</option>
+                <option data-price="120000">Kemeja Korean Style - Rp120.000</option>
+                <option data-price="150000">Flatshoes - Rp150.000</option>
+                <option data-price="35000">Jepit Rambut - Rp35.000</option>
+                <option data-price="130000">Tas Sekolah - Rp130.000</option>
+                <option data-price="85000">Rok Mini - Rp85.000</option>
+                <option data-price="100000">Cardigan - Rp100.000</option>
+                <option data-price="115000">One Set - Rp115.000</option>
+              </select>
+              <div class="error-msg">Pilih salah satu produk dulu ya</div>
+            </div>
+
+            <div class="field" id="fieldJumlah">
+              <label for="jumlah">Jumlah Pembelian</label>
+              <input type="number" id="jumlah" min="1" value="1">
+              <div class="error-msg">Jumlah minimal 1</div>
+            </div>
+          </div>
+
+          <div class="subtotal-box">
+            <span>Subtotal:</span>
+            <span id="subtotalText">Rp0</span>
+          </div>
+
+          <div class="field" id="fieldUkuran">
+            <label>Ukuran <span style="font-weight:400; font-size:11.5px;">(kalau belum tercantum di produk keranjang)</span></label>
+            <div class="radio-group">
+              <div class="radio-pill">
+                <input type="radio" name="ukuran" id="ukS" value="S"><label for="ukS">S</label>
+              </div>
+              <div class="radio-pill">
+                <input type="radio" name="ukuran" id="ukM" value="M"><label for="ukM">M</label>
+              </div>
+              <div class="radio-pill">
+                <input type="radio" name="ukuran" id="ukL" value="L"><label for="ukL">L</label>
+              </div>
+              <div class="radio-pill">
+                <input type="radio" name="ukuran" id="ukXL" value="XL"><label for="ukXL">XL</label>
+              </div>
+            </div>
+            <div class="error-msg">Pilih ukuran dulu ya</div>
+          </div>
+
+          <div class="field" id="fieldBayar">
+            <label>Metode Pembayaran</label>
+            <div class="radio-group">
+              <div class="radio-pill">
+                <input type="radio" name="bayar" id="bayarTransfer" value="Transfer" checked><label for="bayarTransfer">🏦 Transfer</label>
+              </div>
+              <div class="radio-pill">
+                <input type="radio" name="bayar" id="bayarCod" value="COD"><label for="bayarCod">🚪 COD</label>
+              </div>
+              <div class="radio-pill">
+                <input type="radio" name="bayar" id="bayarEwallet" value="E-Wallet"><label for="bayarEwallet">📱 E-Wallet</label>
+              </div>
+            </div>
+
+            <div class="payment-detail show" id="detailTransfer">
+              Transfer ke: <b>BCA 1234567890</b> a.n. Cipa Kids Fashion.
+              <div class="field" style="margin-top:10px; margin-bottom:0;">
+                <label for="buktiTransfer">Upload Bukti Transfer <span class="hint">(opsional, bisa dikirim nanti via WhatsApp)</span></label>
+                <input type="file" id="buktiTransfer" accept="image/*,.pdf">
+              </div>
+            </div>
+            <div class="payment-detail" id="detailCod">
+              Bayar tunai langsung ke kurir saat barang sampai. Khusus tersedia untuk area Bandung & Jabodetabek.
+            </div>
+            <div class="payment-detail" id="detailEwallet">
+              Bayar via <b>DANA / OVO / GoPay</b> ke nomor <b>087812548352</b>. Kirim bukti bayar via WhatsApp setelah checkout.
+            </div>
+          </div>
+
+          <div class="field" id="fieldAlamat">
+            <label for="alamat">Alamat Pengiriman</label>
+            <textarea id="alamat" placeholder="Nama jalan, no. rumah, RT/RW, kelurahan, kecamatan, kota"></textarea>
+            <div class="error-msg">Alamat pengiriman wajib diisi</div>
+          </div>
+
+          <div class="field" id="fieldTanggal">
+            <label for="tanggal">Tanggal Pengiriman yang Diinginkan <span class="hint">(opsional)</span></label>
+            <input type="date" id="tanggal">
+          </div>
+
+          <div class="agree-row">
+            <input type="checkbox" id="setuju">
+            <label for="setuju">Saya sudah memeriksa data & pesanan saya, dan setuju dengan syarat & ketentuan toko.</label>
+          </div>
+
+          <div class="btn-row">
+            <button type="submit" class="submit-btn">💖 Kirim Pesanan 💖</button>
+            <button type="reset" class="reset-btn" id="resetBtn">🔄 Reset</button>
+          </div>
+        </form>
+
+        <div class="thanks-box" id="thanksBox" style="display:none;">
+          🎀 Terima Kasih Telah Berbelanja di Cipa Kids Fashion 🎀
+        </div>
+      </div>
+    </section>
+
+    <!-- SIDEBAR KANAN -->
+    <aside class="right">
+      <div class="sidebar-sticky">
+        <h3>🧮 Info Pesanan</h3>
+        <hr>
+        <div class="box" id="livePreview">
+          Isi form di sebelah kiri, ringkasan pesanan kamu bakal muncul otomatis di sini.
+        </div>
+
+        <h3>📋 Yang Perlu Disiapkan</h3>
+        <hr>
+        <div class="box">
+          Pastikan nomor WhatsApp aktif untuk konfirmasi pesanan & pengiriman bukti pembayaran.
+        </div>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <b>&copy; 2026 Cipa Kids Fashion. Made with 💗 for little princess.</b>
+  </footer>
+
+</div>
+
+<script>
+  // ---------- Toast ----------
+  const toastEl = document.getElementById('toast');
+  let toastTimer = null;
+  function showToast(text){
+    toastEl.textContent = text;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2400);
+  }
+  function formatRupiah(num){ return 'Rp' + num.toLocaleString('id-ID'); }
+
+  // ---------- Baca keranjang dari localStorage ----------
+  let cartFromStorage = {};
+  try {
+    const saved = localStorage.getItem('cipaCart');
+    cartFromStorage = saved ? JSON.parse(saved) : {};
+  } catch (err) {
+    cartFromStorage = {};
+  }
+
+  const hasCartItems = Object.keys(cartFromStorage).length > 0;
+
+  const fieldCartItems = document.getElementById('fieldCartItems');
+  const cartItemsList  = document.getElementById('cartItemsList');
+  const manualPicker   = document.getElementById('manualPicker');
+  const produkSelect   = document.getElementById('produk');
+  const jumlahInput    = document.getElementById('jumlah');
+  const subtotalText   = document.getElementById('subtotalText');
+  const livePreview    = document.getElementById('livePreview');
+
+  function renderCartItemsInForm(){
+    const keys = Object.keys(cartFromStorage);
+    cartItemsList.innerHTML = keys.map(key => {
+      const item = cartFromStorage[key];
+      return `
+        <div class="cart-order-row" data-key="${key}">
+          <span class="coi-name">${item.name}</span>
+          <span class="coi-price">${formatRupiah(item.price)}</span>
+          <div class="coi-qty">
+            <button type="button" class="coi-dec">−</button>
+            <span>${item.qty}</span>
+            <button type="button" class="coi-inc">+</button>
+          </div>
+          <button type="button" class="coi-remove" title="Hapus">✕</button>
+        </div>`;
+    }).join('');
+    document.querySelector('.cart-note') || cartItemsList.insertAdjacentHTML('afterend',
+      '<p class="cart-note">Produk ini otomatis diambil dari keranjang belanja kamu. Bisa diubah jumlahnya atau dihapus di sini.</p>');
+  }
+
+  function getCartTotal(){
+    let total = 0;
+    Object.values(cartFromStorage).forEach(item => { total += item.price * item.qty; });
+    return total;
+  }
+
+  function updateLivePreview(){
+    const keys = Object.keys(cartFromStorage);
+    if (keys.length === 0 && !(produkSelect && produkSelect.value)){
+      livePreview.textContent = 'Isi form di sebelah kiri, ringkasan pesanan kamu bakal muncul otomatis di sini.';
+      return;
+    }
+    let html = '';
+    keys.forEach(key => {
+      const item = cartFromStorage[key];
+      html += `${item.name} x${item.qty} — <b>${formatRupiah(item.price * item.qty)}</b><br>`;
+    });
+    if (keys.length === 0 && produkSelect && produkSelect.value){
+      const opt = produkSelect.options[produkSelect.selectedIndex];
+      const price = parseInt(opt.dataset.price, 10);
+      const qty = Math.max(1, parseInt(jumlahInput.value, 10) || 1);
+      html += `${opt.text.split(' - ')[0]} x${qty} — <b>${formatRupiah(price * qty)}</b><br>`;
+    }
+    html += `<br>Total: <b style="color:#e8579d;">${formatRupiah(updateSubtotal())}</b>`;
+    livePreview.innerHTML = html;
+  }
+
+  function updateSubtotal(){
+    let total = 0;
+    if (hasCartItems){
+      total = getCartTotal();
+    } else if (produkSelect && produkSelect.value){
+      const opt = produkSelect.options[produkSelect.selectedIndex];
+      const price = opt && opt.dataset.price ? parseInt(opt.dataset.price, 10) : 0;
+      const qty = Math.max(1, parseInt(jumlahInput.value, 10) || 1);
+      total = price * qty;
+    }
+    subtotalText.textContent = formatRupiah(total);
+    return total;
+  }
+
+  if (hasCartItems){
+    fieldCartItems.style.display = 'block';
+    manualPicker.style.display = 'none';
+    renderCartItemsInForm();
+
+    // qty +/- dan hapus di dalam daftar produk keranjang
+    cartItemsList.addEventListener('click', (e) => {
+      const row = e.target.closest('.cart-order-row');
+      if (!row) return;
+      const key = row.dataset.key;
+
+      if (e.target.classList.contains('coi-inc')){
+        cartFromStorage[key].qty++;
+      } else if (e.target.classList.contains('coi-dec')){
+        cartFromStorage[key].qty--;
+        if (cartFromStorage[key].qty <= 0) delete cartFromStorage[key];
+      } else if (e.target.classList.contains('coi-remove')){
+        delete cartFromStorage[key];
+      }
+
+      localStorage.setItem('cipaCart', JSON.stringify(cartFromStorage));
+      renderCartItemsInForm();
+      updateSubtotal();
+      updateLivePreview();
+    });
+  } else {
+    manualPicker.style.display = 'block';
+    produkSelect.addEventListener('change', () => { updateSubtotal(); updateLivePreview(); });
+    jumlahInput.addEventListener('input', () => { updateSubtotal(); updateLivePreview(); });
+  }
+
+  document.querySelectorAll('input[name="ukuran"]').forEach(r => r.addEventListener('change', updateLivePreview));
+
+  updateSubtotal();
+  updateLivePreview();
+
+  // ---------- Toggle detail metode pembayaran ----------
+  const paymentDetails = {
+    bayarTransfer: document.getElementById('detailTransfer'),
+    bayarCod: document.getElementById('detailCod'),
+    bayarEwallet: document.getElementById('detailEwallet')
+  };
+  document.querySelectorAll('input[name="bayar"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      Object.values(paymentDetails).forEach(d => d.classList.remove('show'));
+      paymentDetails[radio.id].classList.add('show');
+    });
+  });
+
+  // ---------- Validasi & submit form ----------
+  const form = document.getElementById('orderForm');
+  const thanksBox = document.getElementById('thanksBox');
+
+  const fieldsToCheck = hasCartItems
+    ? ['fieldNama', 'fieldHp', 'fieldAlamat']
+    : ['fieldNama', 'fieldHp', 'fieldProduk', 'fieldJumlah', 'fieldUkuran', 'fieldAlamat'];
+
+  function clearErrors(){
+    fieldsToCheck.forEach(id => document.getElementById(id).classList.remove('error'));
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    clearErrors();
+    let valid = true;
+
+    if (document.getElementById('nama').value.trim() === ''){
+      document.getElementById('fieldNama').classList.add('error'); valid = false;
+    }
+
+    if (document.getElementById('hp').value.trim() === ''){
+      document.getElementById('fieldHp').classList.add('error'); valid = false;
+    }
+
+    if (hasCartItems){
+      if (Object.keys(cartFromStorage).length === 0){
+        showToast('Keranjang kosong, yuk pilih produk dulu di halaman Produk 🎀');
+        valid = false;
+      }
+    } else {
+      if (produkSelect.value === ''){
+        document.getElementById('fieldProduk').classList.add('error'); valid = false;
+      }
+      if (!jumlahInput.value || parseInt(jumlahInput.value, 10) < 1){
+        document.getElementById('fieldJumlah').classList.add('error'); valid = false;
+      }
+      if (!document.querySelector('input[name="ukuran"]:checked')){
+        document.getElementById('fieldUkuran').classList.add('error'); valid = false;
+      }
+    }
+
+    if (document.getElementById('alamat').value.trim() === ''){
+      document.getElementById('fieldAlamat').classList.add('error'); valid = false;
+    }
+
+    const setuju = document.getElementById('setuju').checked;
+    if (!setuju){
+      showToast('Centang dulu persetujuan syarat & ketentuan ya 🎀');
+      valid = false;
+    }
+
+    if (!valid){
+      showToast('Yuk lengkapi dulu data yang masih kosong 💗');
+      thanksBox.style.display = 'none';
+      return;
+    }
+
+    // Kumpulkan data pesanan buat disimpan (dipakai halaman invoice nanti)
+    let items = [];
+    let total = 0;
+
+    if (hasCartItems){
+      Object.values(cartFromStorage).forEach(item => {
+        items.push({ nama: item.name, harga: item.price, jumlah: item.qty });
+        total += item.price * item.qty;
+      });
+    } else {
+      const opt = produkSelect.options[produkSelect.selectedIndex];
+      const price = parseInt(opt.dataset.price, 10);
+      const qty = parseInt(jumlahInput.value, 10);
+      items.push({ nama: opt.text.split(' - ')[0], harga: price, jumlah: qty });
+      total = price * qty;
+    }
+
+    const ukuranChecked = document.querySelector('input[name="ukuran"]:checked');
+    const buktiFile = document.getElementById('buktiTransfer');
+
+    const order = {
+      nama: document.getElementById('nama').value.trim(),
+      hp: document.getElementById('hp').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      items: items,
+      ukuran: ukuranChecked ? ukuranChecked.value : null,
+      pembayaran: document.querySelector('input[name="bayar"]:checked').value,
+      buktiTransferNama: (buktiFile && buktiFile.files.length > 0) ? buktiFile.files[0].name : null,
+      alamat: document.getElementById('alamat').value.trim(),
+      tanggalKirim: document.getElementById('tanggal').value || null,
+      total: total,
+      tanggal: new Date().toLocaleString('id-ID')
+    };
+
+    try {
+      localStorage.setItem('cipaLastOrder', JSON.stringify(order));
+      localStorage.removeItem('cipaCart'); // kosongkan keranjang setelah checkout
+    } catch (err) {
+      console.warn('localStorage tidak tersedia:', err);
+    }
+
+    thanksBox.style.display = 'block';
+    showToast('🎉 Pesanan berhasil dikirim! Mengarahkan ke invoice...');
+    form.querySelector('.submit-btn').disabled = true;
+    setTimeout(() => { window.location.href = 'invoice.html'; }, 1200);
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    setTimeout(() => {
+      updateSubtotal();
+      updateLivePreview();
+      thanksBox.style.display = 'none';
+      clearErrors();
+    }, 0);
+  });
+</script>
+
+</body>
+</html>

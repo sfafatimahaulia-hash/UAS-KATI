@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Kontak & Biodata - Cipa Kids Fashion</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:        #ff8fb1;
+    --pink-deep:   #e8579d;
+    --pink-soft:   #ffd3e0;
+    --pink-pale:   #fff0f5;
+    --mint:        #9fe3c4;
+    --mint-pale:   #eafaf2;
+    --butter:      #ffe08a;
+    --butter-pale: #fff7dd;
+    --plum-text:   #7a3b63;
+    --ink:         #5a3552;
+    --white:       #ffffff;
+    --radius-lg:   28px;
+    --radius-md:   18px;
+    --shadow-pop:  0 10px 24px rgba(232, 87, 157, 0.22);
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 8% 12%, #ffe1ea 0, transparent 45%),
+      radial-gradient(circle at 92% 20%, #e3d5ff 0, transparent 40%),
+      radial-gradient(circle at 15% 90%, #d6f5e6 0, transparent 40%),
+      #fff8fa;
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+  .doodle{
+    position: fixed; font-size: 26px; opacity: .55;
+    pointer-events: none; animation: float 6s ease-in-out infinite; z-index: 0;
+  }
+  @keyframes float{
+    0%,100%{ transform: translateY(0) rotate(0deg); }
+    50%{ transform: translateY(-18px) rotate(8deg); }
+  }
+
+  .wrapper{
+    position: relative; z-index: 1;
+    max-width: 1220px; margin: 22px auto;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-pop);
+    border: 3px solid var(--pink-soft);
+  }
+
+  /* ---------- HEADER ---------- */
+  header.brand{
+    position: relative; text-align: center; padding: 34px 20px 40px;
+    background: linear-gradient(135deg, var(--pink) 0%, var(--pink-deep) 100%);
+    color: var(--white); overflow: hidden;
+  }
+  header.brand::before, header.brand::after{
+    content: "✨"; position: absolute; font-size: 22px; opacity: .8;
+  }
+  header.brand::before{ top: 16px; left: 6%; }
+  header.brand::after{ bottom: 20px; right: 7%; }
+  header.brand h1{
+    font-family: 'Fredoka', cursive;
+    font-size: clamp(26px, 5vw, 42px);
+    margin: 0; text-shadow: 0 3px 0 rgba(0,0,0,.08); letter-spacing: .5px;
+  }
+  .wave{ display: block; width: 100%; line-height: 0; margin-top: -2px; }
+
+  /* ---------- MARQUEE ---------- */
+  marquee.promo-marquee{
+    background: var(--ink); color: var(--butter);
+    font-family: 'Baloo 2', cursive; font-size: 14px;
+    padding: 8px 0; letter-spacing: .5px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav.menu{ background: var(--pink-pale); border-bottom: 3px dashed var(--pink); }
+  nav.menu ul{
+    list-style: none; display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 10px; margin: 0; padding: 14px 12px;
+  }
+  nav.menu a{
+    text-decoration: none; color: var(--pink-deep);
+    font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 15px;
+    padding: 8px 16px; border-radius: 20px; background: var(--white);
+    border: 2px solid var(--pink-soft); transition: all .2s ease; display: inline-block;
+  }
+  nav.menu a.active{ background: var(--pink-deep); color: var(--white); }
+  nav.menu a:hover{
+    background: var(--pink-deep); color: var(--white);
+    transform: translateY(-3px) rotate(-2deg);
+    box-shadow: 0 6px 12px rgba(232,87,157,.3);
+  }
+
+  /* ---------- PAGE TITLE ---------- */
+  .page-title{ text-align: center; padding: 26px 20px 4px; }
+  .page-title h2{
+    font-family: 'Fredoka', cursive; color: var(--pink-deep);
+    font-size: clamp(22px, 4vw, 30px); margin: 0 0 6px;
+  }
+  .page-title p{
+    font-family: 'Baloo 2', cursive; color: var(--plum-text); font-size: 14px; margin: 0;
+  }
+
+  /* ---------- MAIN LAYOUT ---------- */
+  main.layout{ display: flex; flex-wrap: wrap; align-items: stretch; }
+  aside, section.content{ padding: 22px; }
+  aside.left{ flex: 1 1 210px; background: var(--mint-pale); }
+  aside.right{ flex: 1 1 210px; background: var(--butter-pale); }
+  section.content{ flex: 3 1 460px; }
+  .sidebar-sticky{ position: sticky; top: 20px; }
+
+  aside h3{
+    font-family: 'Baloo 2', cursive; font-size: 16px; margin: 0 0 4px;
+    display: flex; align-items: center; gap: 6px; justify-content: center;
+  }
+  aside.left h3{ color: #2f6b45; }
+  aside.right h3{ color: #a9750b; }
+  aside hr{
+    border: none; border-top: 2px dotted currentColor; opacity: .4;
+    width: 70%; margin: 6px auto 14px;
+  }
+  .box{
+    background: var(--white); border-radius: var(--radius-md);
+    padding: 12px 14px; margin-bottom: 16px; font-size: 13px; line-height: 1.55;
+    box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  }
+  aside.left .box{ border: 2px solid #cdeed7; }
+  aside.right .box{ border: 2px solid #ffe6a8; }
+
+  .quickfact{
+    background: var(--white); border-radius: 14px; padding: 10px 12px;
+    margin-bottom: 8px; font-size: 12.5px; border: 2px solid #cdeed7;
+    display: flex; justify-content: space-between; gap: 8px;
+  }
+  .quickfact b{ color: #2f6b45; font-family: 'Fredoka', cursive; font-size: 14px; }
+
+  /* ---------- BIODATA CARD ---------- */
+  .biodata-card{
+    background: var(--pink-pale);
+    border: 2px solid var(--pink-soft);
+    border-radius: var(--radius-lg);
+    padding: 28px 26px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 26px;
+    align-items: flex-start;
+    margin-bottom: 22px;
+  }
+
+  .photo-frame{
+    flex: 0 0 200px;
+    text-align: center;
+  }
+  .photo-frame .pic-box{
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 5px solid var(--white);
+    outline: 3px solid var(--pink-deep);
+    box-shadow: var(--shadow-pop);
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 12px;
+  }
+  .photo-frame .pic-box img{
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .photo-frame .pic-box .placeholder{
+    font-size: 60px;
+  }
+  .photo-frame .caption{
+    font-family: 'Baloo 2', cursive; color: var(--pink-deep); font-size: 13px;
+  }
+
+  .bio-info{ flex: 1 1 280px; }
+  .bio-info h3{
+    font-family: 'Fredoka', cursive; color: var(--pink-deep);
+    font-size: 24px; margin: 0 0 4px;
+  }
+  .bio-info .tagline{
+    font-family: 'Baloo 2', cursive; color: var(--plum-text); font-size: 13.5px; margin: 0 0 16px;
+  }
+
+  .bio-grid{
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px;
+  }
+  .bio-item{
+    background: var(--white); border-radius: 14px; padding: 10px 14px;
+    box-shadow: 0 3px 8px rgba(0,0,0,.04);
+  }
+  .bio-item .label{
+    font-size: 11px; color: #a9799a; text-transform: uppercase; letter-spacing: .5px;
+  }
+  .bio-item .value{
+    font-family: 'Baloo 2', cursive; font-weight: 700; color: var(--ink); font-size: 14px;
+  }
+
+  .section-block{
+    background: var(--mint-pale);
+    border: 2px solid #bfe3ca;
+    border-radius: var(--radius-lg);
+    padding: 22px 24px;
+    margin-bottom: 20px;
+  }
+  .section-block h3{
+    font-family: 'Fredoka', cursive; color: #2f6b45;
+    font-size: 18px; margin: 0 0 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-block p{ font-size: 13.5px; line-height: 1.7; color: #4d6b53; margin: 0; }
+
+  .contact-links{
+    display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px;
+  }
+  .contact-links a{
+    display: flex; align-items: center; gap: 8px;
+    background: var(--white);
+    border: 2px solid var(--pink-soft);
+    border-radius: 20px;
+    padding: 10px 16px;
+    text-decoration: none;
+    color: var(--ink);
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    font-size: 13px;
+    transition: all .15s ease;
+  }
+  .contact-links a:hover{
+    background: var(--pink-deep); color: var(--white); transform: translateY(-2px);
+  }
+
+  footer{
+    text-align: center; padding: 18px;
+    background: var(--pink-deep); color: var(--white);
+    font-family: 'Baloo 2', cursive; font-size: 13px;
+  }
+
+  @media (max-width: 600px){
+    .biodata-card{ flex-direction: column; align-items: center; text-align: center; }
+    .bio-grid{ grid-template-columns: 1fr; }
+  }
+  @media (max-width: 500px){ .doodle{ display: none; } }
+</style>
+</head>
+<body>
+
+<span class="doodle" style="top:8%; left:3%;">🎀</span>
+<span class="doodle" style="top:60%; left:2%; animation-delay:1s;">⭐</span>
+<span class="doodle" style="top:20%; right:4%; animation-delay:2s;">💗</span>
+<span class="doodle" style="top:75%; right:3%; animation-delay:1.5s;">🧸</span>
+
+<div class="wrapper">
+
+  <!-- ========== HEADER ========== -->
+  <header class="brand">
+    <h1>📞 Kontak & Biodata 📞</h1>
+  </header>
+  <svg class="wave" viewBox="0 0 1200 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,20 C150,45 350,0 600,20 C850,40 1050,0 1200,20 L1200,0 L0,0 Z" fill="#e8579d"></path>
+  </svg>
+
+  <!-- ========== MARQUEE ========== -->
+  <marquee class="promo-marquee" behavior="scroll" direction="left" scrollamount="5">
+    🎀 Website ini dibuat untuk memenuhi Tugas UAS Komputer Aplikasi Teknologi Informasi &nbsp;•&nbsp; 🌸 Cipa Kids Fashion &nbsp;•&nbsp; Terima kasih sudah berkunjung! 💗
+  </marquee>
+
+  <!-- ========== MENU ========== -->
+  <nav class="menu">
+    <ul>
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="tentang%20perusahaan.html">🏢 Tentang Perusahaan</a></li>
+      <li><a href="produk.html">👗 Produk</a></li>
+      <li><a href="detail%20produk.html">🔍 Detail Produk</a></li>
+      <li><a href="transaksi.html">🛒 Transaksi</a></li>
+      <li><a href="invoice.html">🧾 Invoice</a></li>
+      <li><a href="kontak.html" class="active">📞 Kontak & Biodata</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-title">
+    <h2>👋 Kenalan Sama Pembuat Website Ini 👋</h2>
+    <p>Biodata mahasiswa penyusun tugas UAS ini</p>
+  </div>
+
+  <!-- ========== MAIN: FULL BIODATA (TANPA SIDEBAR) ========== -->
+  <main class="layout">
+
+    <!-- CONTENT: BIODATA -->
+    <section class="content" style="flex: 1 1 100%;">
+
+      <div class="biodata-card">
+        <div class="photo-frame">
+          <div class="pic-box">
+            <!-- Ganti src di bawah dengan foto asli kamu, contoh: src="foto.jpeg" -->
+            <img src="foto.jpeg" alt="Foto Cipaa" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="placeholder" style="display:none;">🧑‍🎓</span>
+          </div>
+          <div class="caption">📸 This is me</div>
+        </div>
+
+        <div class="bio-info">
+          <h3>Cipaa</h3>
+
+          <div class="bio-grid">
+            <div class="bio-item">
+              <div class="label">Nama Lengkap</div>
+              <div class="value">Siti Fatimah Aulia</div>
+            </div>
+            <div class="bio-item">
+              <div class="label">NIM</div>
+              <div class="value">10525006</div>
+            </div>
+            <div class="bio-item">
+              <div class="label">Kelas</div>
+              <div class="value">IS-1</div>
+            </div>
+            <div class="bio-item">
+              <div class="label">Program Studi</div>
+              <div class="value">Sistem Informasi</div>
+            </div>
+            <div class="bio-item">
+              <div class="label">Universitas</div>
+              <div class="value">UNIKOM</div>
+            </div>
+            <div class="bio-item">
+              <div class="label">Email</div>
+              <div class="value">siti.10525006@mahasiswa.unikom.ac.id</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <h3>🎯 Tentang Website Ini</h3>
+        <p>Website "Cipa Kids Fashion" ini dibuat untuk memenuhi Ujian Akhir Semester (UAS) mata kuliah Komputer Aplikasi Teknologi Informasi, dosen pengampu Syahrul Mauluddin, S.Kom., M.Kom. — mengembangkan tugas UTS sebelumnya menjadi website yang lebih lengkap, dibangun dengan HTML, CSS, dan JavaScript, mencakup katalog produk, form transaksi interaktif, keranjang belanja, hingga invoice otomatis.</p>
+      </div>
+
+      <div class="section-block" style="background:var(--butter-pale); border-color:#ffe6a8;">
+        <h3 style="color:#a9750b;">📬 Kontak Saya</h3>
+        <div class="contact-links">
+          <a href="mailto:10525006@mahasiswa.unikom.ac.id">📧 Email</a>
+          <a href="#">📱 WhatsApp</a>
+          <a href="#">📷 Instagram</a>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <h3>🧭 Navigasi Cepat</h3>
+        <div class="contact-links">
+          <a href="index.html">🏠 Home</a>
+          <a href="tentang%20perusahaan.html">🏢 Tentang Perusahaan</a>
+          <a href="produk.html">👗 Produk</a>
+          <a href="detail%20produk.html">🔍 Detail Produk</a>
+          <a href="transaksi.html">🛒 Transaksi</a>
+          <a href="invoice.html">🧾 Invoice</a>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <b>&copy; 2026 Cipa Kids Fashion. Made with 💗 for little princess.</b>
+  </footer>
+
+</div>
+
+</body>
+</html>

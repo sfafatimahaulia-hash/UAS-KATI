@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Tentang Perusahaan - Cipa Kids Fashion</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:        #ff8fb1;
+    --pink-deep:   #e8579d;
+    --pink-soft:   #ffd3e0;
+    --pink-pale:   #fff0f5;
+    --mint:        #9fe3c4;
+    --mint-pale:   #eafaf2;
+    --butter:      #ffe08a;
+    --butter-pale: #fff7dd;
+    --plum-text:   #7a3b63;
+    --ink:         #5a3552;
+    --white:       #ffffff;
+    --radius-lg:   28px;
+    --radius-md:   18px;
+    --shadow-pop:  0 10px 24px rgba(232, 87, 157, 0.22);
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 8% 12%, #ffe1ea 0, transparent 45%),
+      radial-gradient(circle at 92% 20%, #e3d5ff 0, transparent 40%),
+      radial-gradient(circle at 15% 90%, #d6f5e6 0, transparent 40%),
+      #fff8fa;
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+  .doodle{
+    position: fixed; font-size: 26px; opacity: .55;
+    pointer-events: none; animation: float 6s ease-in-out infinite; z-index: 0;
+  }
+  @keyframes float{
+    0%,100%{ transform: translateY(0) rotate(0deg); }
+    50%{ transform: translateY(-18px) rotate(8deg); }
+  }
+
+  .wrapper{
+    position: relative; z-index: 1;
+    max-width: 1220px; margin: 22px auto;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-pop);
+    border: 3px solid var(--pink-soft);
+  }
+
+  /* ---------- HEADER ---------- */
+  header.brand{
+    position: relative; text-align: center; padding: 34px 20px 40px;
+    background: linear-gradient(135deg, var(--pink) 0%, var(--pink-deep) 100%);
+    color: var(--white); overflow: hidden;
+  }
+  header.brand::before, header.brand::after{
+    content: "✨"; position: absolute; font-size: 22px; opacity: .8;
+  }
+  header.brand::before{ top: 16px; left: 6%; }
+  header.brand::after{ bottom: 20px; right: 7%; }
+  header.brand h1{
+    font-family: 'Fredoka', cursive;
+    font-size: clamp(26px, 5vw, 42px);
+    margin: 0; text-shadow: 0 3px 0 rgba(0,0,0,.08); letter-spacing: .5px;
+  }
+  .wave{ display: block; width: 100%; line-height: 0; margin-top: -2px; }
+
+  /* ---------- MARQUEE ---------- */
+  marquee.promo-marquee{
+    background: var(--ink); color: var(--butter);
+    font-family: 'Baloo 2', cursive; font-size: 14px;
+    padding: 8px 0; letter-spacing: .5px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav.menu{ background: var(--pink-pale); border-bottom: 3px dashed var(--pink); }
+  nav.menu ul{
+    list-style: none; display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 10px; margin: 0; padding: 14px 12px;
+  }
+  nav.menu a{
+    text-decoration: none; color: var(--pink-deep);
+    font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 15px;
+    padding: 8px 16px; border-radius: 20px; background: var(--white);
+    border: 2px solid var(--pink-soft); transition: all .2s ease; display: inline-block;
+  }
+  nav.menu a.active{ background: var(--pink-deep); color: var(--white); }
+  nav.menu a:hover{
+    background: var(--pink-deep); color: var(--white);
+    transform: translateY(-3px) rotate(-2deg);
+    box-shadow: 0 6px 12px rgba(232,87,157,.3);
+  }
+
+  /* ---------- PAGE TITLE ---------- */
+  .page-title{ text-align: center; padding: 26px 20px 4px; }
+  .page-title h2{
+    font-family: 'Fredoka', cursive; color: var(--pink-deep);
+    font-size: clamp(22px, 4vw, 30px); margin: 0 0 6px;
+  }
+  .page-title p{
+    font-family: 'Baloo 2', cursive; color: var(--plum-text); font-size: 14px; margin: 0;
+  }
+
+  /* ---------- MAIN LAYOUT ---------- */
+  main.layout{ display: flex; flex-wrap: wrap; align-items: stretch; }
+  aside, section.content{ padding: 22px; }
+  aside.left{ flex: 1 1 210px; background: var(--mint-pale); }
+  aside.right{ flex: 1 1 210px; background: var(--butter-pale); }
+  section.content{ flex: 3 1 460px; }
+  .sidebar-sticky{ position: sticky; top: 20px; }
+
+  aside h3{
+    font-family: 'Baloo 2', cursive; font-size: 16px; margin: 0 0 4px;
+    display: flex; align-items: center; gap: 6px; justify-content: center;
+  }
+  aside.left h3{ color: #2f6b45; }
+  aside.right h3{ color: #a9750b; }
+  aside hr{
+    border: none; border-top: 2px dotted currentColor; opacity: .4;
+    width: 70%; margin: 6px auto 14px;
+  }
+  .box{
+    background: var(--white); border-radius: var(--radius-md);
+    padding: 12px 14px; margin-bottom: 16px; font-size: 13px; line-height: 1.55;
+    box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  }
+  aside.left .box{ border: 2px solid #cdeed7; }
+  aside.right .box{ border: 2px solid #ffe6a8; }
+
+  .quickfact{
+    background: var(--white); border-radius: 14px; padding: 10px 12px;
+    margin-bottom: 8px; font-size: 12.5px; border: 2px solid #cdeed7;
+    display: flex; justify-content: space-between; gap: 8px;
+  }
+  .quickfact b{ color: #2f6b45; font-family: 'Fredoka', cursive; font-size: 15px; }
+
+  /* ---------- CONTENT SECTIONS ---------- */
+  .about-hero{
+    text-align: center;
+    background: linear-gradient(135deg, var(--pink-soft), #ffe6ee);
+    border-radius: var(--radius-lg);
+    padding: 30px 24px;
+    margin-bottom: 24px;
+  }
+  .about-hero h3{
+    font-family: 'Fredoka', cursive; color: var(--pink-deep);
+    font-size: clamp(20px, 3.5vw, 28px); margin: 0 0 10px;
+  }
+  .about-hero p{
+    font-size: 14px; color: var(--plum-text); max-width: 600px; margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .section-block{
+    background: var(--pink-pale);
+    border: 2px solid var(--pink-soft);
+    border-radius: var(--radius-lg);
+    padding: 22px 24px;
+    margin-bottom: 20px;
+  }
+  .section-block:nth-of-type(even){ background: var(--mint-pale); border-color: #bfe3ca; }
+  .section-block h3{
+    font-family: 'Fredoka', cursive; color: var(--pink-deep);
+    font-size: 19px; margin: 0 0 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-block p{ font-size: 13.5px; line-height: 1.7; color: #6b5568; margin: 0 0 10px; }
+
+  .vm-grid{
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+  .vm-card{
+    background: var(--white); border-radius: 16px; padding: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  }
+  .vm-card h4{
+    font-family: 'Baloo 2', cursive; color: var(--pink-deep); font-size: 15px; margin: 0 0 8px;
+  }
+  .vm-card p, .vm-card ul{ font-size: 13px; color: #6b5568; margin: 0; line-height: 1.6; }
+  .vm-card ul{ padding-left: 18px; }
+
+  .value-grid{
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px;
+  }
+  .value-card{
+    background: var(--white); border-radius: 16px; padding: 16px; text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  }
+  .value-card .emoji{ font-size: 30px; display: block; margin-bottom: 8px; }
+  .value-card b{ font-family: 'Baloo 2', cursive; color: var(--ink); font-size: 13px; display: block; margin-bottom: 4px; }
+  .value-card span{ font-size: 11.5px; color: #8a7488; }
+
+  .timeline{ position: relative; padding-left: 24px; }
+  .timeline::before{
+    content: ""; position: absolute; left: 6px; top: 4px; bottom: 4px;
+    width: 3px; background: var(--pink-soft); border-radius: 3px;
+  }
+  .timeline-item{ position: relative; margin-bottom: 18px; }
+  .timeline-item::before{
+    content: ""; position: absolute; left: -24px; top: 3px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--pink-deep); border: 3px solid var(--white);
+    box-shadow: 0 0 0 2px var(--pink-deep);
+  }
+  .timeline-item .tahun{
+    font-family: 'Fredoka', cursive; color: var(--pink-deep); font-size: 15px;
+  }
+  .timeline-item p{ margin: 4px 0 0; font-size: 13px; color: #6b5568; }
+
+  footer{
+    text-align: center; padding: 18px;
+    background: var(--pink-deep); color: var(--white);
+    font-family: 'Baloo 2', cursive; font-size: 13px;
+  }
+
+  @media (max-width: 700px){ .vm-grid{ grid-template-columns: 1fr; } }
+  @media (max-width: 500px){ .doodle{ display: none; } }
+</style>
+</head>
+<body>
+
+<span class="doodle" style="top:8%; left:3%;">🎀</span>
+<span class="doodle" style="top:60%; left:2%; animation-delay:1s;">⭐</span>
+<span class="doodle" style="top:20%; right:4%; animation-delay:2s;">💗</span>
+<span class="doodle" style="top:75%; right:3%; animation-delay:1.5s;">🧸</span>
+
+<div class="wrapper">
+
+  <!-- ========== HEADER ========== -->
+  <header class="brand">
+    <h1>🏢 Tentang Perusahaan 🏢</h1>
+  </header>
+  <svg class="wave" viewBox="0 0 1200 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,20 C150,45 350,0 600,20 C850,40 1050,0 1200,20 L1200,0 L0,0 Z" fill="#e8579d"></path>
+  </svg>
+
+  <!-- ========== MARQUEE ========== -->
+  <marquee class="promo-marquee" behavior="scroll" direction="left" scrollamount="5">
+    🎀 Cipa Kids Fashion — Dress Up Your Little Princess &nbsp;•&nbsp; ✨ Bahan Berkualitas, Harga Bersahabat &nbsp;•&nbsp; 💗 Terima Kasih Sudah Menjadi Bagian dari Cerita Kami!
+  </marquee>
+
+  <!-- ========== MENU ========== -->
+  <nav class="menu">
+    <ul>
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="tentang perusahaan.html" class="active">🏢 Tentang Perusahaan</a></li>
+      <li><a href="produk.html">👗 Produk</a></li>
+      <li><a href="detail%20produk.html">🔍 Detail Produk</a></li>
+      <li><a href="transaksi.html">🛒 Transaksi</a></li>
+      <li><a href="invoice.html">🧾 Invoice</a></li>
+      <li><a href="kontak.html">📞 Kontak & Biodata</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-title">
+    <h2>🏢 Tentang Cipa Kids Fashion 🏢</h2>
+    <p>Kenalan lebih dekat sama cerita di balik brand kami</p>
+  </div>
+
+  <!-- ========== MAIN: SIDEBAR KIRI - CONTENT - SIDEBAR KANAN ========== -->
+  <main class="layout">
+
+    <!-- SIDEBAR KIRI -->
+    <aside class="left">
+      <div class="sidebar-sticky">
+        <h3>📌 Fakta Singkat</h3>
+        <hr>
+        <div class="quickfact"><span>Berdiri sejak</span><b>2026</b></div>
+        <div class="quickfact"><span>Lokasi</span><b>Bandung</b></div>
+        <div class="quickfact"><span>Kategori Produk</span><b>9+</b></div>
+        <div class="quickfact"><span>Pelanggan Puas</span><b>230+</b></div>
+
+        <h3>💌 Ikuti Kami</h3>
+        <hr>
+        <div class="box">
+          <a href="#">Instagram: @fashionbycipsz</a><br>
+          <a href="#">WhatsApp: 087812548352</a><br>
+          <a href="#">Shopee: fashionbycipsz</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <section class="content">
+
+      <div class="about-hero">
+        <h3>🌸 Dress Up Your Little Princess 🌸</h3>
+        <p>Cipa Kids Fashion hadir dari kecintaan sederhana: melihat anak-anak tampil percaya diri dengan pakaian yang nyaman, lucu, dan berkualitas — tanpa harus menguras kantong orang tua.</p>
+      </div>
+
+      <div class="section-block">
+        <h3>📖 Sejarah Kami</h3>
+        <p>Cipa Kids Fashion berawal dari sebuah ide kecil di tahun 2026, ketika pendirinya kesulitan menemukan pakaian anak yang lucu sekaligus nyaman dengan harga terjangkau di sekitar Bandung. Berbekal riset kecil-kecilan dan modal seadanya, toko ini mulai berjualan dari rumah, memasarkan produk lewat media sosial dan promosi dari mulut ke mulut.</p>
+        <p>Seiring waktu, respons yang hangat dari para orang tua membuat Cipa Kids Fashion berkembang — mulai dari sekadar akun media sosial kecil, hingga kini memiliki katalog produk yang lebih lengkap dan sistem pemesanan online yang lebih rapi seperti yang kamu lihat sekarang.</p>
+      </div>
+
+      <div class="section-block">
+        <h3>🎯 Visi & Misi</h3>
+        <div class="vm-grid">
+          <div class="vm-card">
+            <h4>🌟 Visi</h4>
+            <p>Menjadi brand fashion anak lokal yang terpercaya, dikenal karena kualitas bahan, desain yang menggemaskan, dan pelayanan yang ramah bagi setiap keluarga di Indonesia.</p>
+          </div>
+          <div class="vm-card">
+            <h4>🚀 Misi</h4>
+            <ul>
+              <li>Menghadirkan produk berkualitas dengan harga terjangkau</li>
+              <li>Memberikan pelayanan yang cepat, ramah, dan jujur</li>
+              <li>Terus berinovasi mengikuti tren fashion anak masa kini</li>
+              <li>Mendukung kenyamanan tumbuh kembang anak lewat pakaian yang aman digunakan</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <h3>💎 Nilai-Nilai Kami</h3>
+        <div class="value-grid">
+          <div class="value-card">
+            <span class="emoji">🧵</span>
+            <b>Kualitas</b>
+            <span>Bahan premium, aman untuk kulit anak</span>
+          </div>
+          <div class="value-card">
+            <span class="emoji">💰</span>
+            <b>Terjangkau</b>
+            <span>Harga bersahabat untuk semua kalangan</span>
+          </div>
+          <div class="value-card">
+            <span class="emoji">📦</span>
+            <b>Terpercaya</b>
+            <span>Packing rapi & pengiriman tepat waktu</span>
+          </div>
+          <div class="value-card">
+            <span class="emoji">💗</span>
+            <b>Ramah</b>
+            <span>Pelayanan hangat seperti ke keluarga sendiri</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <h3>🗓️ Perjalanan Kami</h3>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="tahun">Awal 2026</div>
+            <p>Cipa Kids Fashion mulai berjualan dari rumah lewat media sosial dengan koleksi terbatas.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="tahun">Pertengahan 2026</div>
+            <p>Menambah kategori produk (dress, atasan, sepatu, aksesoris) dan mulai dikenal di komunitas parenting lokal Bandung.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="tahun">Akhir 2026</div>
+            <p>Meluncurkan sistem katalog & pemesanan online, memudahkan pelanggan berbelanja kapan saja tanpa harus chat manual satu-satu.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="tahun">Sekarang</div>
+            <p>Terus berkembang dengan lebih dari 230+ pelanggan puas, dan berkomitmen menghadirkan koleksi baru setiap minggunya.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- SIDEBAR KANAN -->
+    <aside class="right">
+      <div class="sidebar-sticky">
+        <h3>🏪 Info Toko</h3>
+        <hr>
+        <div class="box">
+          Mall Paris Van Java (PVJ),<br>
+          Lantai GL - Bandung.
+        </div>
+
+        <h3>🕐 Jam Operasional</h3>
+        <hr>
+        <div class="box">
+          Senin - Jumat: 09.00 - 17.00 WIB<br>
+          Sabtu - Minggu: 09.00 - 14.00 WIB
+        </div>
+
+        <h3>💬 Punya Pertanyaan?</h3>
+        <hr>
+        <div class="box">
+          Jangan ragu hubungi kami di halaman <a href="kontak.html">Kontak & Biodata</a> atau langsung lewat WhatsApp ya!
+        </div>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <b>&copy; 2026 Cipa Kids Fashion. Made with 💗 for little princess.</b>
+  </footer>
+
+</div>
+
+</body>
+</html>

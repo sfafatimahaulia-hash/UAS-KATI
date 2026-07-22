@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Invoice - Cipa Kids Fashion</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:        #ff8fb1;
+    --pink-deep:   #e8579d;
+    --pink-soft:   #ffd3e0;
+    --pink-pale:   #fff0f5;
+    --mint:        #9fe3c4;
+    --mint-pale:   #eafaf2;
+    --butter:      #ffe08a;
+    --butter-pale: #fff7dd;
+    --plum-text:   #7a3b63;
+    --ink:         #5a3552;
+    --white:       #ffffff;
+    --radius-lg:   28px;
+    --radius-md:   18px;
+    --shadow-pop:  0 10px 24px rgba(232, 87, 157, 0.22);
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 8% 12%, #ffe1ea 0, transparent 45%),
+      radial-gradient(circle at 92% 20%, #e3d5ff 0, transparent 40%),
+      radial-gradient(circle at 15% 90%, #d6f5e6 0, transparent 40%),
+      #fff8fa;
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+  .doodle{
+    position: fixed; font-size: 26px; opacity: .55;
+    pointer-events: none; animation: float 6s ease-in-out infinite; z-index: 0;
+  }
+  @keyframes float{
+    0%,100%{ transform: translateY(0) rotate(0deg); }
+    50%{ transform: translateY(-18px) rotate(8deg); }
+  }
+
+  .wrapper{
+    position: relative; z-index: 1;
+    max-width: 1220px; margin: 22px auto;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-pop);
+    border: 3px solid var(--pink-soft);
+  }
+
+  /* ---------- HEADER ---------- */
+  header.brand{
+    position: relative; text-align: center; padding: 34px 20px 40px;
+    background: linear-gradient(135deg, var(--pink) 0%, var(--pink-deep) 100%);
+    color: var(--white); overflow: hidden;
+  }
+  header.brand::before, header.brand::after{
+    content: "✨"; position: absolute; font-size: 22px; opacity: .8;
+  }
+  header.brand::before{ top: 16px; left: 6%; }
+  header.brand::after{ bottom: 20px; right: 7%; }
+  header.brand h1{
+    font-family: 'Fredoka', cursive;
+    font-size: clamp(26px, 5vw, 42px);
+    margin: 0; text-shadow: 0 3px 0 rgba(0,0,0,.08); letter-spacing: .5px;
+  }
+  .wave{ display: block; width: 100%; line-height: 0; margin-top: -2px; }
+
+  /* ---------- MARQUEE ---------- */
+  marquee.promo-marquee{
+    background: var(--ink); color: var(--butter);
+    font-family: 'Baloo 2', cursive; font-size: 14px;
+    padding: 8px 0; letter-spacing: .5px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav.menu{ background: var(--pink-pale); border-bottom: 3px dashed var(--pink); }
+  nav.menu ul{
+    list-style: none; display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 10px; margin: 0; padding: 14px 12px;
+  }
+  nav.menu a{
+    text-decoration: none; color: var(--pink-deep);
+    font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 15px;
+    padding: 8px 16px; border-radius: 20px; background: var(--white);
+    border: 2px solid var(--pink-soft); transition: all .2s ease; display: inline-block;
+  }
+  nav.menu a.active{ background: var(--pink-deep); color: var(--white); }
+  nav.menu a:hover{
+    background: var(--pink-deep); color: var(--white);
+    transform: translateY(-3px) rotate(-2deg);
+    box-shadow: 0 6px 12px rgba(232,87,157,.3);
+  }
+
+  /* ---------- PAGE TITLE ---------- */
+  .page-title{ text-align: center; padding: 26px 20px 4px; }
+  .page-title h2{
+    font-family: 'Fredoka', cursive; color: var(--pink-deep);
+    font-size: clamp(22px, 4vw, 30px); margin: 0 0 6px;
+  }
+  .page-title p{
+    font-family: 'Baloo 2', cursive; color: var(--plum-text); font-size: 14px; margin: 0;
+  }
+
+  /* ---------- MAIN LAYOUT ---------- */
+  main.layout{ display: flex; flex-wrap: wrap; align-items: stretch; }
+  aside, section.content{ padding: 22px; }
+  aside.left{ flex: 1 1 210px; background: var(--mint-pale); }
+  aside.right{ flex: 1 1 210px; background: var(--butter-pale); }
+  section.content{ flex: 3 1 460px; }
+  .sidebar-sticky{ position: sticky; top: 20px; }
+
+  aside h3{
+    font-family: 'Baloo 2', cursive; font-size: 16px; margin: 0 0 4px;
+    display: flex; align-items: center; gap: 6px; justify-content: center;
+  }
+  aside.left h3{ color: #2f6b45; }
+  aside.right h3{ color: #a9750b; }
+  aside hr{
+    border: none; border-top: 2px dotted currentColor; opacity: .4;
+    width: 70%; margin: 6px auto 14px;
+  }
+  .box{
+    background: var(--white); border-radius: var(--radius-md);
+    padding: 12px 14px; margin-bottom: 16px; font-size: 13px; line-height: 1.55;
+    box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  }
+  aside.left .box{ border: 2px solid #cdeed7; }
+  aside.right .box{ border: 2px solid #ffe6a8; }
+
+  .steps{ list-style: none; margin: 0; padding: 0; text-align: left; }
+  .steps li{
+    background: var(--white); border-radius: 14px; padding: 8px 12px;
+    margin-bottom: 8px; font-size: 12.5px; border: 2px solid #cdeed7;
+  }
+  .steps b{ color: #2f6b45; }
+
+  /* ---------- INVOICE CARD ---------- */
+  .invoice-card{
+    background: var(--pink-pale);
+    border: 3px dashed var(--pink-deep);
+    border-radius: var(--radius-lg);
+    padding: 26px 28px;
+  }
+
+  .invoice-head{
+    display: flex; justify-content: space-between; align-items: flex-start;
+    flex-wrap: wrap; gap: 14px;
+    border-bottom: 3px dotted var(--pink-deep);
+    padding-bottom: 16px; margin-bottom: 16px;
+  }
+  .invoice-head .brand-mini{
+    font-family: 'Fredoka', cursive; color: var(--pink-deep); font-size: 22px;
+  }
+  .invoice-head .brand-mini span{ display:block; font-family:'Baloo 2',cursive; font-size:12px; color: var(--plum-text); font-weight:400; }
+  .invoice-no{
+    text-align: right; font-family: 'Baloo 2', cursive; font-size: 13px; color: var(--ink);
+  }
+  .invoice-no b{ color: var(--pink-deep); font-family:'Fredoka',cursive; font-size:16px; }
+
+  .invoice-section{ margin-bottom: 20px; }
+  .invoice-section h4{
+    font-family: 'Baloo 2', cursive; color: var(--pink-deep); font-size: 14px;
+    margin: 0 0 8px; text-transform: uppercase; letter-spacing: .5px;
+  }
+  .invoice-grid{
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; font-size: 13.5px;
+  }
+  .invoice-grid .label{ color: #a9799a; font-size: 12px; }
+  .invoice-grid .value{ font-weight: 700; color: var(--ink); }
+
+  table.invoice-table{
+    width: 100%; border-collapse: collapse; font-size: 13.5px; margin-bottom: 10px;
+  }
+  table.invoice-table th{
+    background: var(--pink-deep); color: var(--white);
+    padding: 10px; text-align: left; font-family: 'Baloo 2', cursive;
+  }
+  table.invoice-table th:last-child, table.invoice-table td:last-child{ text-align: right; }
+  table.invoice-table td{
+    padding: 9px 10px; background: var(--white); border-bottom: 1px solid var(--pink-soft);
+  }
+  table.invoice-table tr:last-child td{ border-bottom: none; }
+
+  .invoice-total{
+    display: flex; justify-content: flex-end; gap: 14px; align-items: baseline;
+    padding-top: 14px; border-top: 3px dotted var(--pink-deep);
+    font-family: 'Baloo 2', cursive; font-size: 15px; font-weight: 700;
+  }
+  .invoice-total .grand{
+    font-family: 'Fredoka', cursive; color: var(--pink-deep); font-size: 24px;
+  }
+
+  .invoice-note{
+    margin-top: 20px; background: var(--white); border: 2px dashed var(--pink-deep);
+    border-radius: 14px; padding: 12px 14px; font-size: 12.5px; line-height: 1.6;
+  }
+
+  .invoice-footer-msg{
+    text-align: center; margin-top: 22px; font-family: 'Baloo 2', cursive;
+    color: var(--pink-deep); font-size: 15px;
+  }
+
+  .action-row{
+    display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap;
+  }
+  .btn{
+    flex: 1 1 160px;
+    font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 14px;
+    padding: 12px; border-radius: 22px; text-align: center;
+    text-decoration: none; cursor: pointer; border: none;
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .btn-print{
+    background: var(--pink-deep); color: var(--white);
+    box-shadow: 0 5px 0 #b8386f;
+  }
+  .btn-print:hover{ transform: translateY(2px); box-shadow: 0 3px 0 #b8386f; }
+  .btn-home{
+    background: var(--white); color: var(--pink-deep);
+    border: 2px solid var(--pink-soft);
+    box-shadow: 0 5px 0 var(--pink-soft);
+  }
+  .btn-home:hover{ transform: translateY(2px); box-shadow: 0 3px 0 var(--pink-soft); }
+
+  /* ---------- EMPTY STATE ---------- */
+  .empty-state{
+    text-align: center; padding: 50px 20px;
+  }
+  .empty-state .emoji{ font-size: 60px; margin-bottom: 14px; }
+  .empty-state h3{
+    font-family: 'Fredoka', cursive; color: var(--pink-deep); font-size: 22px; margin: 0 0 8px;
+  }
+  .empty-state p{ font-size: 14px; color: var(--plum-text); margin: 0 0 20px; }
+
+  footer{
+    text-align: center; padding: 18px;
+    background: var(--pink-deep); color: var(--white);
+    font-family: 'Baloo 2', cursive; font-size: 13px;
+  }
+
+  /* ---------- PRINT STYLE ---------- */
+  @media print{
+    body{ background: var(--white) !important; }
+    .doodle, marquee, nav.menu, header.brand, .wave,
+    aside, .page-title, footer, .action-row{ display: none !important; }
+    .wrapper{ box-shadow: none; border: none; margin: 0; max-width: 100%; }
+    main.layout{ display: block; }
+    section.content{ flex: none; padding: 0; }
+    .invoice-card{ border: 2px solid #000; }
+  }
+
+  @media (max-width: 500px){ .doodle{ display: none; } }
+</style>
+</head>
+<body>
+
+<span class="doodle" style="top:8%; left:3%;">🎀</span>
+<span class="doodle" style="top:60%; left:2%; animation-delay:1s;">⭐</span>
+<span class="doodle" style="top:20%; right:4%; animation-delay:2s;">💗</span>
+<span class="doodle" style="top:75%; right:3%; animation-delay:1.5s;">🧸</span>
+
+<div class="wrapper">
+
+  <!-- ========== HEADER ========== -->
+  <header class="brand">
+    <h1>🧾 Invoice / Struk 🧾</h1>
+  </header>
+  <svg class="wave" viewBox="0 0 1200 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,20 C150,45 350,0 600,20 C850,40 1050,0 1200,20 L1200,0 L0,0 Z" fill="#e8579d"></path>
+  </svg>
+
+  <!-- ========== MARQUEE ========== -->
+  <marquee class="promo-marquee" behavior="scroll" direction="left" scrollamount="5">
+    🎀 GRATIS ONGKIR se-Jabodetabek min. belanja Rp150.000 &nbsp;•&nbsp; 🔥 DISKON 10% pembelian pertama pakai kode CIPA10 &nbsp;•&nbsp; ✨ Terima kasih sudah belanja di Cipa Kids Fashion! 🎀
+  </marquee>
+
+  <!-- ========== MENU ========== -->
+  <nav class="menu">
+    <ul>
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="tentang perusahaan.html">🏢 Tentang Perusahaan</a></li>
+      <li><a href="produk.html">👗 Produk</a></li>
+      <li><a href="detail%20produk.html">🔍 Detail Produk</a></li>
+      <li><a href="transaksi.html">🛒 Transaksi</a></li>
+      <li><a href="invoice.html" class="active">🧾 Invoice</a></li>
+      <li><a href="kontak.html">📞 Kontak & Biodata</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-title">
+    <h2>🧾 Struk Belanja Kamu 🧾</h2>
+    <p>Simpan atau cetak struk ini sebagai bukti pesanan</p>
+  </div>
+
+  <!-- ========== MAIN: SIDEBAR KIRI - CONTENT - SIDEBAR KANAN ========== -->
+  <main class="layout">
+
+    <!-- SIDEBAR KIRI -->
+    <aside class="left">
+      <div class="sidebar-sticky">
+        <h3>📝 Setelah Checkout</h3>
+        <hr>
+        <ul class="steps">
+          <li><b>1.</b> Cek kembali detail pesanan</li>
+          <li><b>2.</b> Kirim bukti bayar via WhatsApp</li>
+          <li><b>3.</b> Tunggu konfirmasi admin</li>
+          <li><b>4.</b> Pesanan diproses & dikirim</li>
+        </ul>
+
+        <h3>💌 Butuh Bantuan?</h3>
+        <hr>
+        <div class="box">
+          Hubungi WhatsApp: 087812548352 kalau ada pertanyaan soal pesanan kamu.
+        </div>
+      </div>
+    </aside>
+
+    <!-- CONTENT: INVOICE -->
+    <section class="content">
+      <div id="invoiceContainer"></div>
+    </section>
+
+    <!-- SIDEBAR KANAN -->
+    <aside class="right">
+      <div class="sidebar-sticky">
+        <h3>🎁 Promo Berikutnya</h3>
+        <hr>
+        <div class="box">
+          Simpan kode <b>CIPA10</b> buat diskon 10% pembelian berikutnya!
+        </div>
+
+        <h3>🚚 Estimasi Pengiriman</h3>
+        <hr>
+        <div class="box">
+          Bandung: 1-2 hari<br>
+          Jabodetabek: 2-3 hari<br>
+          Luar Jawa: 4-7 hari
+        </div>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <b>&copy; 2026 Cipa Kids Fashion. Made with 💗 for little princess.</b>
+  </footer>
+
+</div>
+
+<script>
+  function formatRupiah(num){ return 'Rp' + num.toLocaleString('id-ID'); }
+
+  const container = document.getElementById('invoiceContainer');
+  let order = null;
+
+  try {
+    const saved = localStorage.getItem('cipaLastOrder');
+    order = saved ? JSON.parse(saved) : null;
+  } catch (err) {
+    order = null;
+  }
+
+  if (!order || !order.items || order.items.length === 0){
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="emoji">🧾</div>
+        <h3>Belum Ada Invoice</h3>
+        <p>Kamu belum melakukan transaksi apa pun, atau invoice sebelumnya sudah tidak tersimpan.</p>
+        <a href="produk.html" class="btn btn-print" style="display:inline-block;">Yuk Belanja Dulu 🛍️</a>
+      </div>
+    `;
+  } else {
+    // Generate nomor invoice sederhana dari timestamp
+    const invoiceNo = 'CKF-' + Date.now().toString().slice(-8);
+
+    const itemRows = order.items.map(it => `
+      <tr>
+        <td>${it.nama}</td>
+        <td>${it.jumlah}</td>
+        <td>${formatRupiah(it.harga)}</td>
+        <td>${formatRupiah(it.harga * it.jumlah)}</td>
+      </tr>
+    `).join('');
+
+    container.innerHTML = `
+      <div class="invoice-card">
+        <div class="invoice-head">
+          <div class="brand-mini">
+            🌸 Cipa Kids Fashion
+            <span>Mall Paris Van Java (PVJ), Lantai GL - Bandung</span>
+          </div>
+          <div class="invoice-no">
+            No. Invoice<br>
+            <b>${invoiceNo}</b><br>
+            ${order.tanggal}
+          </div>
+        </div>
+
+        <div class="invoice-section">
+          <h4>Data Pemesan</h4>
+          <div class="invoice-grid">
+            <div><span class="label">Nama</span><br><span class="value">${order.nama || '-'}</span></div>
+            <div><span class="label">No. WhatsApp</span><br><span class="value">${order.hp || '-'}</span></div>
+            <div><span class="label">Email</span><br><span class="value">${order.email || '-'}</span></div>
+            <div><span class="label">Ukuran</span><br><span class="value">${order.ukuran || '-'}</span></div>
+            <div style="grid-column:1/-1;"><span class="label">Alamat Pengiriman</span><br><span class="value">${order.alamat || '-'}</span></div>
+            <div><span class="label">Tanggal Kirim Diinginkan</span><br><span class="value">${order.tanggalKirim || 'Sesegera mungkin'}</span></div>
+            <div><span class="label">Metode Pembayaran</span><br><span class="value">${order.pembayaran || '-'}</span></div>
+          </div>
+        </div>
+
+        <div class="invoice-section">
+          <h4>Rincian Barang</h4>
+          <table class="invoice-table">
+            <tr><th>Produk</th><th>Qty</th><th>Harga</th><th>Subtotal</th></tr>
+            ${itemRows}
+          </table>
+          <div class="invoice-total">
+            <span>Total Pembayaran:</span>
+            <span class="grand">${formatRupiah(order.total)}</span>
+          </div>
+        </div>
+
+        ${order.buktiTransferNama ? `
+        <div class="invoice-note">
+          📎 File bukti transfer terlampir: <b>${order.buktiTransferNama}</b>
+        </div>` : `
+        <div class="invoice-note">
+          Jangan lupa kirim bukti pembayaran via WhatsApp ke <b>087812548352</b> ya, biar pesanan cepat diproses!
+        </div>`}
+
+        <p class="invoice-footer-msg">🎀 Terima Kasih Telah Berbelanja di Cipa Kids Fashion 🎀</p>
+
+        <div class="action-row">
+          <button class="btn btn-print" onclick="window.print()">🖨️ Cetak Struk</button>
+          <a href="produk.html" class="btn btn-home">🛍️ Belanja Lagi</a>
+        </div>
+      </div>
+    `;
+  }
+</script>
+
+</body>
+</html>
